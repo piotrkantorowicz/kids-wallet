@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crud", "Crud", "{E3D18818-4E88-4A6D-8CB0-418B732BD71C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B20F2F4D-FD60-437D-BF32-84243239A281}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet", "Src\Crud\KidsWallet\KidsWallet.csproj", "{1D629C06-5900-4F7D-AFD1-6EB2AE622319}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API", "Src\Crud\KidsWallet.API\KidsWallet.API.csproj", "{B1D5E3FB-CC46-457B-9EDF-E3C428DCB65D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.Tests.E2E", "KidsWallet.Tests.E2E\KidsWallet.Tests.E2E.csproj", "{C717FAAD-07F0-4EE8-8344-95DC68A0478C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1D5E3FB-CC46-457B-9EDF-E3C428DCB65D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1D5E3FB-CC46-457B-9EDF-E3C428DCB65D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1D5E3FB-CC46-457B-9EDF-E3C428DCB65D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1D5E3FB-CC46-457B-9EDF-E3C428DCB65D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C717FAAD-07F0-4EE8-8344-95DC68A0478C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C717FAAD-07F0-4EE8-8344-95DC68A0478C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C717FAAD-07F0-4EE8-8344-95DC68A0478C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C717FAAD-07F0-4EE8-8344-95DC68A0478C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B20F2F4D-FD60-437D-BF32-84243239A281} = {E3D18818-4E88-4A6D-8CB0-418B732BD71C}
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319} = {E3D18818-4E88-4A6D-8CB0-418B732BD71C}
+		{B1D5E3FB-CC46-457B-9EDF-E3C428DCB65D} = {E3D18818-4E88-4A6D-8CB0-418B732BD71C}
+		{C717FAAD-07F0-4EE8-8344-95DC68A0478C} = {B20F2F4D-FD60-437D-BF32-84243239A281}
+	EndGlobalSection
+EndGlobal

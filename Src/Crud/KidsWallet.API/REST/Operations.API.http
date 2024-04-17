@@ -1,0 +1,73 @@
+﻿# curl -X 'GET' 
+#  'http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc' 
+#  -H 'accept: */*'
+GET http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
+accept: */*
+
+###
+
+# curl -X 'GET' 
+#  'http://localhost:5164/operations' 
+#  -H 'accept: */*'
+GET http://localhost:5164/operations
+accept: */*
+
+###
+
+# curl -X 'POST' 
+#  'http://localhost:5164/operations' 
+#  -H 'accept: */*' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "kidAccountOperationId": "185cdd23-53b0-4d1c-9ade-80cab04729dc",
+#  "kidAccountId": "643485ab-3915-4464-9efa-b26722750994",
+#  "amount": 150,
+#  "title": "Example",
+#  "dueDate": "2024-04-17T04:13:22.664Z",
+#  "operationType": 2
+#}'
+POST http://localhost:5164/operations
+accept: */*
+Content-Type: application/json
+
+{
+  "kidAccountOperationId": "185cdd23-53b0-4d1c-9ade-80cab04729dc",
+  "kidAccountId": "643485ab-3915-4464-9efa-b26722750994",
+  "amount": 150,
+  "title": "Example",
+  "dueDate": "2024-04-17T04:13:22.664Z",
+  "operationType": 2
+}
+
+###
+
+# curl -X 'PUT' 
+#  'http://localhost:5164/operations/643485ab-3915-4464-9efa-b26722750994' 
+#  -H 'accept: */*' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "amount": 250,
+#  "title": "Example-15",
+#  "dueDate": "2024-04-17T04:14:20.771Z",
+#  "operationType": 2
+#}'
+PUT http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
+accept: */*
+Content-Type: application/json
+
+{
+  "amount": 250,
+  "title": "Example-15",
+  "dueDate": "2024-04-17T04:14:20.771Z",
+  "operationType": 2
+}
+
+###
+
+# curl -X 'DELETE' 
+#  'http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc' 
+#  -H 'accept: */*'
+DELETE http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
+accept: */*
+
+###
