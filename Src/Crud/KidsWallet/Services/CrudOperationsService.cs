@@ -63,7 +63,8 @@ public sealed class CrudOperationsService<TEntity>(KidsWalletDbContext kidsWalle
         return entities.ToList();
     }
     
-    public async Task<TEntity> CreateAsync(Guid id, Func<TEntity> createEntityFunc, CancellationToken cancellationToken,bool saveChanges = true)
+    public async Task<TEntity> CreateAsync(Guid id, Func<TEntity> createEntityFunc, CancellationToken cancellationToken,
+        bool saveChanges = true)
     {
         TEntity? dbEntity = await GetByIdAsync(id, false, cancellationToken);
         
@@ -80,7 +81,8 @@ public sealed class CrudOperationsService<TEntity>(KidsWalletDbContext kidsWalle
         return entity;
     }
     
-    public async Task UpdateAsync(Guid id, Func<TEntity, TEntity> updateEntityFunc, CancellationToken cancellationToken,bool saveChanges = true)
+    public async Task UpdateAsync(Guid id, Func<TEntity, TEntity> updateEntityFunc, CancellationToken cancellationToken,
+        bool saveChanges = true)
     {
         TEntity? dbEntity = await GetByIdAsync(id, true, cancellationToken);
         TEntity entity = updateEntityFunc(dbEntity!);
@@ -89,7 +91,7 @@ public sealed class CrudOperationsService<TEntity>(KidsWalletDbContext kidsWalle
         await _kidsWalletDbContext.SaveChangesAsync(cancellationToken);
     }
     
-    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken,bool saveChanges = true)
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken, bool saveChanges = true)
     {
         TEntity? dbEntity = await GetByIdAsync(id, true, cancellationToken);
         _kidsWalletDbContext.Remove(dbEntity!);

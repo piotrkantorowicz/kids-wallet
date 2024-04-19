@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\KidsWallet\KidsWallet.csproj"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0"/>
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0"/>
     </ItemGroup>
@@ -20,5 +16,9 @@
             <_Parameter1>KidsWallet.Tests.E2E</_Parameter1>
         </AssemblyAttribute>
     </ItemGroup>
-    
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Crud\KidsWallet\KidsWallet.csproj"/>
+    </ItemGroup>
+
 </Project>

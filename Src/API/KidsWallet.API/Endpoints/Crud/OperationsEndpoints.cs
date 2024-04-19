@@ -1,13 +1,12 @@
 ﻿using KidsWallet.Commands.Operations;
 using KidsWallet.Persistence.Model.Operations;
-using KidsWallet.Queries.Accounts;
 using KidsWallet.Queries.Operations;
 
 using Microsoft.AspNetCore.Mvc;
 
 using Wolverine;
 
-namespace KidsWallet.API.Endpoints;
+namespace KidsWallet.API.Endpoints.Crud;
 
 public static class OperationsEndpoints
 {
@@ -38,23 +37,23 @@ public static class OperationsEndpoints
         app
             .MapPost("/operations",
                 ([FromBody] CreateKidAccountOperationRequest request, [FromServices] IMessageBus bus) =>
-                    bus.InvokeAsync(new CreateKidAccountOperationCommand(KidAccountOperationId: request.KidAccountOperationId,
-                        KidAccountId: request.KidAccountId, DueDate: request.DueDate, Amount: request.Amount,
-                        Title: request.Title, OperationType: (OperationType)request.OperationType)))
+                    bus.InvokeAsync(new CreateKidAccountOperationCommand(request.KidAccountOperationId,
+                        request.KidAccountId, DueDate: request.DueDate, Amount: request.Amount, Title: request.Title,
+                        OperationType: (OperationType)request.OperationType)))
             .WithTags(Tag);
         
         app
             .MapPut("/operations/{id:guid}",
                 ([FromRoute] Guid id, [FromBody] UpdateKidAccountOperationRequest request,
-                        [FromServices] IMessageBus bus) =>
-                    bus.InvokeAsync(new UpdateKidAccountOperationCommand(KidAccountOperationId: id, DueDate: request.DueDate,
-                        Amount: request.Amount, Title: request.Title, OperationType: request.OperationType)))
+                    [FromServices] IMessageBus bus) => bus.InvokeAsync(new UpdateKidAccountOperationCommand(id,
+                    DueDate: request.DueDate, Amount: request.Amount, Title: request.Title,
+                    OperationType: request.OperationType)))
             .WithTags(Tag);
         
         app
             .MapDelete("/operations/{id:guid}",
                 ([FromRoute] Guid id, [FromServices] IMessageBus bus) =>
-                    bus.InvokeAsync(new DeleteKidAccountOperationCommand(KidAccountOperationId: id)))
+                    bus.InvokeAsync(new DeleteKidAccountOperationCommand(id)))
             .WithTags(Tag);
         
         return app;

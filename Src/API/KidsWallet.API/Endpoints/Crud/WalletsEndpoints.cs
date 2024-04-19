@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Wolverine;
 
-namespace KidsWallet.API.Endpoints;
+namespace KidsWallet.API.Endpoints.Crud;
 
 public static class WalletsEndpoints
 {
