@@ -11,5 +11,5 @@ public class ApplicationSettings
 
 public enum ApplicationType
 {
-    Crud
+    Crud = 1
 }
