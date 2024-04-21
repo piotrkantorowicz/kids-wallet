@@ -9,11 +9,11 @@ using Wolverine.Attributes;
 namespace KidsWallet.Commands.Operations;
 
 public sealed record CreateKidAccountOperationRequest(
-    Guid KidAccountOperationId,
-    Guid KidAccountId,
+    Guid OperationId,
+    Guid AccountId,
     decimal Amount,
     string Title,
-    DateTimeOffset DueDate,
+    DateTime DueDate,
     CreateKidAccountOperationRequest_OperationType OperationType);
 
 public enum CreateKidAccountOperationRequest_OperationType
@@ -29,7 +29,7 @@ public sealed record CreateKidAccountOperationCommand(
     Guid KidAccountId,
     decimal Amount,
     string Title,
-    DateTimeOffset DueDate,
+    DateTime DueDate,
     OperationType OperationType);
 
 public sealed class CreateKidAccountOperationCommandValidator : AbstractValidator<CreateKidAccountOperationCommand>

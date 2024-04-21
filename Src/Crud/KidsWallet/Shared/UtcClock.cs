@@ -4,5 +4,5 @@ namespace KidsWallet.Shared;
 
 public sealed class UtcClock : IClock
 {
-    public DateTimeOffset UtcNow => DateTimeOffset.UtcNow;
+    public DateTime UtcNow => DateTime.UtcNow;
 }

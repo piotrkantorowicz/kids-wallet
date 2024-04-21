@@ -21,7 +21,7 @@ public sealed record GetKidWalletsResponse_KidAccountOperation(
     Guid Id,
     Guid KidAccountId,
     string? Description,
-    DateTimeOffset DueDate,
+    DateTime DueDate,
     decimal Amount,
     GetKidWalletsResponse_OperationType OperationType);
 
@@ -37,8 +37,8 @@ public sealed record GetKidWalletsQuery(
     Guid? Id = default,
     Guid? KidId = default,
     string? Name = default,
-    DateTimeOffset? CreatedAt = default,
-    DateTimeOffset? UpdatedAt = default,
+    DateTime? CreatedAt = default,
+    DateTime? UpdatedAt = default,
     bool? IncludeKidAccounts = default,
     bool? IncludeKidAccountOperations = default);
 

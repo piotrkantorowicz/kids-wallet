@@ -2,7 +2,7 @@
 
 public interface IAuditableEntity<out T> : IIdentifiableEntity<T>
 {
-    DateTimeOffset CreatedAt { get; set; }
+    DateTime CreatedAt { get; set; }
     
-    DateTimeOffset? UpdatedAt { get; set; }
+    DateTime? UpdatedAt { get; set; }
 }

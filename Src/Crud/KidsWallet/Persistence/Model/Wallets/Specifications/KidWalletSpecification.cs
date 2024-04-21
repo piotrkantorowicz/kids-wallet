@@ -10,8 +10,8 @@ public sealed record KidWalletSpecification(
     Guid? Id = default,
     Guid? KidId = default,
     string? Name = default,
-    DateTimeOffset? CreatedAt = default,
-    DateTimeOffset? UpdatedAt = default,
+    DateTime? CreatedAt = default,
+    DateTime? UpdatedAt = default,
     bool? IncludeKidAccounts = default,
     bool? IncludeKidAccountOperations = default) : ISpecification<KidWallet>
 {

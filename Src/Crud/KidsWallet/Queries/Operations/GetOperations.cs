@@ -16,7 +16,7 @@ public sealed record GetKidAccountOperationsResponse(
     Guid Id,
     Guid KidAccountId,
     string? Description,
-    DateTimeOffset DueDate,
+    DateTime DueDate,
     decimal Amount,
     GetKidAccountOperationsResponse_OperationType OperationType);
 
@@ -33,10 +33,10 @@ public sealed record GetKidAccountOperationsQuery(
     Guid? KidAccountId = default,
     string? Description = default,
     decimal? Amount = default,
-    DateTimeOffset? DueDate = default,
+    DateTime? DueDate = default,
     GetKidAccountOperationsRequest_OperationType? OperationType = default,
-    DateTimeOffset? CreatedAt = default,
-    DateTimeOffset? UpdatedAt = default);
+    DateTime? CreatedAt = default,
+    DateTime? UpdatedAt = default);
 
 public static class GetKidAccountOperationsQueryQueryHandler
 {

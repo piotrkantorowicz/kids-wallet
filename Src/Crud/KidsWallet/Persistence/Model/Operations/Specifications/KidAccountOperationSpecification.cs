@@ -10,10 +10,10 @@ public sealed record KidAccountOperationSpecification(
     Guid? KidAccountId = default,
     string? Description = default,
     decimal? Amount = default,
-    DateTimeOffset? DueDate = default,
+    DateTime? DueDate = default,
     OperationType? OperationType = default,
-    DateTimeOffset? CreatedAt = default,
-    DateTimeOffset? UpdatedAt = default) : ISpecification<KidAccountOperation>
+    DateTime? CreatedAt = default,
+    DateTime? UpdatedAt = default) : ISpecification<KidAccountOperation>
 {
     public Expression<Func<KidAccountOperation, bool>> ToFilterExpression()
     {

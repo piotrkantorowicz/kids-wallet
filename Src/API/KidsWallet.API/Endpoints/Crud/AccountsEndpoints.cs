@@ -16,27 +16,28 @@ public static class AccountsEndpoints
         app
             .MapGet("/accounts/{id:guid}",
                 ([FromRoute] Guid id, [FromQuery] Guid? kidWalletId, [FromQuery] string? name,
-                    [FromQuery] decimal? balance, [FromQuery] DateTimeOffset? updatedAt,
-                    [FromQuery] DateTimeOffset? createdAt, [FromQuery] bool? includeKidAccountOperations,
-                    [FromServices] IMessageBus bus) => bus.InvokeAsync<GetKidAccountResponse>(new GetKidAccountQuery(id,
-                    kidWalletId, name, balance, createdAt, updatedAt, includeKidAccountOperations)))
+                        [FromQuery] decimal? balance, [FromQuery] DateTime? updatedAt, [FromQuery] DateTime? createdAt,
+                        [FromQuery] bool? includeKidAccountOperations, [FromServices] IMessageBus bus) =>
+                    bus.InvokeAsync<GetKidAccountResponse>(new GetKidAccountQuery(id, kidWalletId, name, balance,
+                        createdAt,
+                        updatedAt, includeKidAccountOperations)))
             .WithTags(Tag);
         
         app
             .MapGet("/accounts",
                 ([FromQuery] Guid? id, [FromQuery] Guid? kidWalletId, [FromQuery] string? name,
-                    [FromQuery] decimal? balance, [FromQuery] DateTimeOffset? updatedAt,
-                    [FromQuery] DateTimeOffset? createdAt, [FromQuery] bool? includeKidAccountOperations,
-                    [FromServices] IMessageBus bus) => bus.InvokeAsync<GetKidAccountsResponse>(
-                    new GetKidAccountsQuery(KidWalletId: kidWalletId, Name: name, Balance: balance,
-                        CreatedAt: createdAt, UpdatedAt: updatedAt,
+                        [FromQuery] decimal? balance, [FromQuery] DateTime? updatedAt, [FromQuery] DateTime? createdAt,
+                        [FromQuery] bool? includeKidAccountOperations, [FromServices] IMessageBus bus) =>
+                    bus.InvokeAsync<GetKidAccountsResponse>(new GetKidAccountsQuery(KidWalletId: kidWalletId,
+                        Name: name,
+                        Balance: balance, CreatedAt: createdAt, UpdatedAt: updatedAt,
                         IncludeKidAccountOperations: includeKidAccountOperations)))
             .WithTags(Tag);
         
         app
             .MapPost("/accounts",
                 ([FromBody] CreateKidAccountRequest request, [FromServices] IMessageBus bus) => bus.InvokeAsync(
-                    new CreateKidAccountCommand(KidWalletId: request.KidWalletId, AccountId: request.AccountId,
+                    new CreateKidAccountCommand(WalletId: request.WalletId, AccountId: request.AccountId,
                         Name: request.Name, Balance: request.Balance)))
             .WithTags(Tag);
         

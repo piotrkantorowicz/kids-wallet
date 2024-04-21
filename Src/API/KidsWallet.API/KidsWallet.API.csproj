@@ -12,9 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
-            <_Parameter1>KidsWallet.Tests.E2E</_Parameter1>
-        </AssemblyAttribute>
+        <InternalsVisibleTo Include="KidsWallet.Tests.E2E"/>
     </ItemGroup>
 
     <ItemGroup>

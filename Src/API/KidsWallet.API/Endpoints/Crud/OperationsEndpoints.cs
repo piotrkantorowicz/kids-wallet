@@ -17,9 +17,8 @@ public static class OperationsEndpoints
         app
             .MapGet("/operations/{id:guid}",
                 ([FromRoute] Guid id, [FromQuery] Guid? kidAccountId, [FromQuery] string? description,
-                        [FromQuery] decimal? amount, [FromQuery] DateTimeOffset? dueDate,
-                        [FromQuery] DateTimeOffset? updatedAt, [FromQuery] DateTimeOffset? createdAt,
-                        [FromServices] IMessageBus bus) =>
+                        [FromQuery] decimal? amount, [FromQuery] DateTime? dueDate, [FromQuery] DateTime? updatedAt,
+                        [FromQuery] DateTime? createdAt, [FromServices] IMessageBus bus) =>
                     bus.InvokeAsync<GetKidAccountOperationResponse>(new GetKidAccountOperationQuery(id, kidAccountId,
                         description, amount, dueDate, CreatedAt: createdAt, UpdatedAt: updatedAt)))
             .WithTags(Tag);
@@ -27,18 +26,18 @@ public static class OperationsEndpoints
         app
             .MapGet("/operations",
                 ([FromQuery] Guid? id, [FromQuery] Guid? kidAccountId, [FromQuery] string? description,
-                    [FromQuery] decimal? amount, [FromQuery] DateTimeOffset? dueDate,
-                    [FromQuery] DateTimeOffset? updatedAt, [FromQuery] DateTimeOffset? createdAt,
-                    [FromServices] IMessageBus bus) => bus.InvokeAsync<GetKidAccountOperationsResponse>(
-                    new GetKidAccountOperationsQuery(KidAccountId: kidAccountId, Description: description,
-                        Amount: amount, DueDate: dueDate, CreatedAt: createdAt, UpdatedAt: updatedAt)))
+                        [FromQuery] decimal? amount, [FromQuery] DateTime? dueDate, [FromQuery] DateTime? updatedAt,
+                        [FromQuery] DateTime? createdAt, [FromServices] IMessageBus bus) =>
+                    bus.InvokeAsync<GetKidAccountOperationsResponse>(new GetKidAccountOperationsQuery(
+                        KidAccountId: kidAccountId, Description: description, Amount: amount, DueDate: dueDate,
+                        CreatedAt: createdAt, UpdatedAt: updatedAt)))
             .WithTags(Tag);
         
         app
             .MapPost("/operations",
                 ([FromBody] CreateKidAccountOperationRequest request, [FromServices] IMessageBus bus) =>
-                    bus.InvokeAsync(new CreateKidAccountOperationCommand(request.KidAccountOperationId,
-                        request.KidAccountId, DueDate: request.DueDate, Amount: request.Amount, Title: request.Title,
+                    bus.InvokeAsync(new CreateKidAccountOperationCommand(request.OperationId, request.AccountId,
+                        DueDate: request.DueDate, Amount: request.Amount, Title: request.Title,
                         OperationType: (OperationType)request.OperationType)))
             .WithTags(Tag);
         
@@ -47,7 +46,7 @@ public static class OperationsEndpoints
                 ([FromRoute] Guid id, [FromBody] UpdateKidAccountOperationRequest request,
                     [FromServices] IMessageBus bus) => bus.InvokeAsync(new UpdateKidAccountOperationCommand(id,
                     DueDate: request.DueDate, Amount: request.Amount, Title: request.Title,
-                    OperationType: request.OperationType)))
+                    OperationType: (OperationType)request.OperationType)))
             .WithTags(Tag);
         
         app

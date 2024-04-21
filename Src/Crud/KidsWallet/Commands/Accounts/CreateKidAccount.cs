@@ -8,9 +8,9 @@ using Wolverine.Attributes;
 
 namespace KidsWallet.Commands.Accounts;
 
-public sealed record CreateKidAccountRequest(Guid AccountId, string Name, decimal Balance, Guid KidWalletId);
+public sealed record CreateKidAccountRequest(Guid AccountId, Guid WalletId, string Name, decimal Balance);
 
-public sealed record CreateKidAccountCommand(Guid AccountId, string Name, decimal Balance, Guid KidWalletId);
+public sealed record CreateKidAccountCommand(Guid AccountId, Guid WalletId, string Name, decimal Balance);
 
 public sealed class CreateKidAccountCommandValidator : AbstractValidator<CreateKidAccountCommand>
 {
@@ -19,7 +19,7 @@ public sealed class CreateKidAccountCommandValidator : AbstractValidator<CreateK
         RuleFor(x => x.AccountId).NotEmpty();
         RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
         RuleFor(x => x.Balance);
-        RuleFor(x => x.KidWalletId).NotEmpty();
+        RuleFor(x => x.WalletId).NotEmpty();
     }
 }
 
@@ -31,13 +31,13 @@ public static class CreateKidAccountCommandHandler
         ICrudOperationsService<KidWallet> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
         KidWallet? kidWallet =
-            await kidWalletCrudOperationsService.GetByIdAsync(command.KidWalletId, true, cancellationToken);
+            await kidWalletCrudOperationsService.GetByIdAsync(command.WalletId, true, cancellationToken);
         
-        await kidAccountCrudOperationsService.CreateAsync(command.KidWalletId, () => new KidAccount
+        await kidAccountCrudOperationsService.CreateAsync(command.WalletId, () => new KidAccount
         {
             Id = command.AccountId,
             Name = command.Name,
-            KidWalletId = command.KidWalletId,
+            KidWalletId = command.WalletId,
             KidWallet = kidWallet,
             Balance = command.Balance
         }, cancellationToken);

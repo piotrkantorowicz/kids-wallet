@@ -11,14 +11,22 @@ namespace KidsWallet.Commands.Operations;
 public sealed record UpdateKidAccountOperationRequest(
     decimal Amount,
     string Title,
-    DateTimeOffset DueDate,
-    OperationType OperationType);
+    DateTime DueDate,
+    UpdateKidAccountOperationRequest_OperationType OperationType);
+
+public enum UpdateKidAccountOperationRequest_OperationType
+{
+    None,
+    Income,
+    Expense,
+    Transfer
+}
 
 public sealed record UpdateKidAccountOperationCommand(
     Guid KidAccountOperationId,
     decimal Amount,
     string Title,
-    DateTimeOffset DueDate,
+    DateTime DueDate,
     OperationType OperationType);
 
 public sealed class UpdateKidAccountOperationCommandValidator : AbstractValidator<UpdateKidAccountOperationCommand>

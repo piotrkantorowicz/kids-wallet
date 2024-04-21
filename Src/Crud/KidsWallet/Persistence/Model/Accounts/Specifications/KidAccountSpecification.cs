@@ -10,8 +10,8 @@ public sealed record KidAccountSpecification(
     Guid? KidWalletId = default,
     string? Name = default,
     decimal? Balance = default,
-    DateTimeOffset? CreatedAt = default,
-    DateTimeOffset? UpdatedAt = default,
+    DateTime? CreatedAt = default,
+    DateTime? UpdatedAt = default,
     bool? IncludeKidAccountOperations = default) : ISpecification<KidAccount>
 {
     public Expression<Func<KidAccount, bool>> ToFilterExpression()

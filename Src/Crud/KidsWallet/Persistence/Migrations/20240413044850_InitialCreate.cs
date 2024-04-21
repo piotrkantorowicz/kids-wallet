@@ -63,7 +63,7 @@ namespace KidsWallet.Persistence.Migrations
                     kid_account_id = table.Column<Guid>(type: "uuid", nullable: false),
                     amount = table.Column<decimal>(type: "numeric", nullable: false),
                     description = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    due_date = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    due_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     operation_type = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     updated_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)

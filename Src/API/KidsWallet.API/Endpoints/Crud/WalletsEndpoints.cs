@@ -15,9 +15,8 @@ public static class WalletsEndpoints
     {
         app
             .MapGet("/wallets/{id:guid}", ([FromRoute] Guid id, [FromQuery] Guid? kidId, [FromQuery] string? name,
-                [FromQuery] DateTimeOffset? createdAt, [FromQuery] DateTimeOffset? updatedAt,
-                [FromQuery] bool? includeKidAccounts, [FromQuery] bool? includeKidAccountOperations,
-                [FromServices] IMessageBus bus) =>
+                [FromQuery] DateTime? createdAt, [FromQuery] DateTime? updatedAt, [FromQuery] bool? includeKidAccounts,
+                [FromQuery] bool? includeKidAccountOperations, [FromServices] IMessageBus bus) =>
             {
                 Task<GetKidWalletResponse> response = bus.InvokeAsync<GetKidWalletResponse>(new GetKidWalletQuery(id,
                     kidId,
@@ -29,9 +28,8 @@ public static class WalletsEndpoints
         
         app
             .MapGet("/wallets", ([FromQuery] Guid? id, [FromQuery] Guid? kidId, [FromQuery] string? name,
-                [FromQuery] DateTimeOffset? createdAt, [FromQuery] DateTimeOffset? updatedAt,
-                [FromQuery] bool? includeKidAccounts, [FromQuery] bool? includeKidAccountOperations,
-                [FromServices] IMessageBus bus) =>
+                [FromQuery] DateTime? createdAt, [FromQuery] DateTime? updatedAt, [FromQuery] bool? includeKidAccounts,
+                [FromQuery] bool? includeKidAccountOperations, [FromServices] IMessageBus bus) =>
             {
                 Task<GetKidWalletsResponse> response = bus.InvokeAsync<GetKidWalletsResponse>(new GetKidWalletsQuery(id,
                     kidId, name, createdAt, updatedAt, includeKidAccounts, includeKidAccountOperations));
