@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crud", "Crud", "{E3D18818-4E88-4A6D-8CB0-418B732BD71C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B20F2F4D-FD60-437D-BF32-84243239A281}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet", "Src\Crud\KidsWallet\KidsWallet.csproj", "{1D629C06-5900-4F7D-AFD1-6EB2AE622319}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.Tests.E2E", "Src\Tests\KidsWallet.Tests.E2E\KidsWallet.Tests.E2E.csproj", "{03318C9B-3627-4765-BE3E-720317FAC9DC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{1D195726-1868-43D0-A3D0-3E8C0DD17895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API", "Src\API\KidsWallet.API\KidsWallet.API.csproj", "{5F196841-509F-4F1C-A999-9E647EB9014E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03318C9B-3627-4765-BE3E-720317FAC9DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03318C9B-3627-4765-BE3E-720317FAC9DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03318C9B-3627-4765-BE3E-720317FAC9DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03318C9B-3627-4765-BE3E-720317FAC9DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F196841-509F-4F1C-A999-9E647EB9014E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F196841-509F-4F1C-A999-9E647EB9014E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F196841-509F-4F1C-A999-9E647EB9014E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F196841-509F-4F1C-A999-9E647EB9014E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D629C06-5900-4F7D-AFD1-6EB2AE622319} = {E3D18818-4E88-4A6D-8CB0-418B732BD71C}
+		{03318C9B-3627-4765-BE3E-720317FAC9DC} = {B20F2F4D-FD60-437D-BF32-84243239A281}
+		{5F196841-509F-4F1C-A999-9E647EB9014E} = {1D195726-1868-43D0-A3D0-3E8C0DD17895}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,61 @@
+# curl -X 'GET' 
+#  'http://localhost:5164/wallets/3fa85f64-5717-4562-b3fc-2c963f66afa6?includeKidAccounts=true&includeKidAccountOperations=true' 
+#  -H 'accept: application/json'
+GET {{host}}/wallets/3fa85f64-5717-4562-b3fc-2c963f66afa6?includeKidAccounts=true&includeKidAccountOperations=true
+accept: application/json
+
+###
+
+# curl -X 'GET' 
+#  'http://localhost:5164/wallets' 
+#  -H 'accept: application/json'
+GET {{host}}/wallets
+accept: application/json
+
+###
+
+# curl -X 'POST' 
+#  'http://localhost:5164/wallets' 
+#  -H 'accept: */*' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "walletId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+#  "kidId": "828d816a-5977-4a91-8d3e-a63caeed850f",
+#  "name": "Example"
+#}'
+POST {{host}}/wallets
+accept: */*
+Content-Type: application/json
+
+{
+  "walletId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "kidId": "828d816a-5977-4a91-8d3e-a63caeed850f",
+  "name": "Example"
+}
+
+###
+
+# curl -X 'PUT' 
+#  'http://localhost:5164/wallets/3fa85f64-5717-4562-b3fc-2c963f66afa6' 
+#  -H 'accept: */*' 
+#  -H 'Content-Type: application/json' 
+#  -d '{
+#  "walletId": "828d816a-5977-4a91-8d3e-a63caeed850f",
+#  "name": "Example"
+#}'
+PUT {{host}}/wallets/3fa85f64-5717-4562-b3fc-2c963f66afa6
+accept: */*
+Content-Type: application/json
+
+{
+  "walletId": "828d816a-5977-4a91-8d3e-a63caeed850f",
+  "name": "Example"
+}
+
+###
+
+# curl -X 'DELETE' 
+#  'http://localhost:5164/wallets/3fa85f64-5717-4562-b3fc-2c963f66afa6' 
+#  -H 'accept: */*'
+DELETE {{host}}/wallets/3fa85f64-5717-4562-b3fc-2c963f66afa6
+accept: */*
