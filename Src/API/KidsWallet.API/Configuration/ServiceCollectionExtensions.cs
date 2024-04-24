@@ -1,7 +1,7 @@
 ﻿using KidsWallet.Extensions;
 using KidsWallet.Persistence;
 
-namespace KidsWallet.API.Configuration.Modules.Crud;
+namespace KidsWallet.API.Configuration;
 
 public static class ServiceCollectionExtensions
 {

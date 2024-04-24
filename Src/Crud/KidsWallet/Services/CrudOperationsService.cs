@@ -2,8 +2,8 @@
 using KidsWallet.Persistence.Extensions;
 using KidsWallet.Persistence.Model.Abstraction;
 using KidsWallet.Services.Abstraction;
-using KidsWallet.Services.Exceptions;
 using KidsWallet.Shared.Abstraction;
+using KidsWallet.Shared.Exceptions;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -70,7 +70,7 @@ public sealed class CrudOperationsService<TEntity>(KidsWalletDbContext kidsWalle
         
         if (dbEntity is not null)
         {
-            throw new AlreadyExistsException(id);
+            throw new ConflictException(id);
         }
         
         TEntity entity = createEntityFunc();

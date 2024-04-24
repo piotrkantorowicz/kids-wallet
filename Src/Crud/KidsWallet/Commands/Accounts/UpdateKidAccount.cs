@@ -17,7 +17,7 @@ public sealed class UpdateKidAccountCommandValidator : AbstractValidator<UpdateK
     {
         RuleFor(x => x.AccountId).NotEmpty();
         RuleFor(x => x.Name).NotEmpty().MaximumLength(50);
-        RuleFor(x => x.Balance);
+        RuleFor(x => x.Balance).GreaterThanOrEqualTo(0);
     }
 }
 

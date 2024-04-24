@@ -18,7 +18,7 @@ public sealed class CreateKidAccountCommandValidator : AbstractValidator<CreateK
     {
         RuleFor(x => x.AccountId).NotEmpty();
         RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
-        RuleFor(x => x.Balance);
+        RuleFor(x => x.Balance).GreaterThanOrEqualTo(0);
         RuleFor(x => x.WalletId).NotEmpty();
     }
 }
