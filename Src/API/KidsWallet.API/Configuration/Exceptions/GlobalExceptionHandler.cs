@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
 using KidsWallet.Shared.Exceptions;
 
@@ -69,42 +68,37 @@ public sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logge
                 }
         }
         
-        return HandleException(statusCode: StatusCodes.Status422UnprocessableEntity, httpContext: httpContext,
-            cancellationToken: cancellationToken, modelState: modelState);
+        return HandleException(StatusCodes.Status422UnprocessableEntity, httpContext, cancellationToken,
+            modelState: modelState);
     }
     
     private static Task HandleNotFoundException(Exception exception, HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        return HandleException(statusCode: StatusCodes.Status404NotFound, httpContext: httpContext,
-            cancellationToken: cancellationToken, exception: exception);
+        return HandleException(StatusCodes.Status404NotFound, httpContext, cancellationToken, exception);
     }
     
     private static Task HandleConflictException(Exception exception, HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        return HandleException(statusCode: StatusCodes.Status409Conflict, httpContext: httpContext,
-            cancellationToken: cancellationToken, exception: exception);
+        return HandleException(StatusCodes.Status409Conflict, httpContext, cancellationToken, exception);
     }
     
     private static Task HandleUnauthorizedAccessException(Exception exception, HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        return HandleException(statusCode: StatusCodes.Status401Unauthorized, httpContext: httpContext,
-            cancellationToken: cancellationToken);
+        return HandleException(StatusCodes.Status401Unauthorized, httpContext, cancellationToken);
     }
     
     private static Task HandleForbiddenAccessException(Exception exception, HttpContext httpContext,
         CancellationToken cancellationToken)
     {
-        return HandleException(statusCode: StatusCodes.Status403Forbidden, httpContext: httpContext,
-            cancellationToken: cancellationToken);
+        return HandleException(StatusCodes.Status403Forbidden, httpContext, cancellationToken);
     }
     
     private static Task HandleUnknownException(HttpContext httpContext, CancellationToken cancellationToken)
     {
-        return HandleException(statusCode: StatusCodes.Status500InternalServerError, httpContext: httpContext,
-            cancellationToken: cancellationToken);
+        return HandleException(StatusCodes.Status500InternalServerError, httpContext, cancellationToken);
     }
     
     private static Task HandleException(int statusCode, HttpContext httpContext, CancellationToken cancellationToken,

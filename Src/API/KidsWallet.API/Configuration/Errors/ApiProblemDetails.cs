@@ -17,11 +17,11 @@ public sealed class ApiProblemDetails
     public static IDictionary<string, string[]> CreateErrorDictionary(ModelStateDictionary? modelState)
     {
         ArgumentNullException.ThrowIfNull(modelState);
-        var errorDictionary = new Dictionary<string, string[]>(StringComparer.Ordinal);
+        Dictionary<string, string[]> errorDictionary = new Dictionary<string, string[]>(StringComparer.Ordinal);
         
         foreach ((string? property, ModelStateEntry? error) in modelState)
         {
-            var errors = error.Errors;
+            ModelErrorCollection errors = error.Errors;
             
             if (errors is not { Count: > 0 })
             {
@@ -30,7 +30,7 @@ public sealed class ApiProblemDetails
             
             if (errors.Count == 1)
             {
-                var errorMessage = errors[0].ErrorMessage;
+                string errorMessage = errors[0].ErrorMessage;
                 
                 errorDictionary.Add(property, [
                     errorMessage
@@ -38,9 +38,9 @@ public sealed class ApiProblemDetails
             }
             else
             {
-                var errorMessages = new string[errors.Count];
+                string[] errorMessages = new string[errors.Count];
                 
-                for (var i = 0; i < errors.Count; i++)
+                for (int i = 0; i < errors.Count; i++)
                 {
                     errorMessages[i] = errors[i].ErrorMessage;
                 }
