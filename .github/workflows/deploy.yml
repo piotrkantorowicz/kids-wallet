@@ -1,0 +1,32 @@
+name: deploy
+on:
+  push:
+    branches: [ main, dev ]
+    paths:
+      - Src/**
+
+permissions:
+  actions: read
+  packages: write
+  contents: write
+  id-token: write
+  checks: write
+  security-events: write
+
+jobs:
+  code-ql:
+    uses: ./.github/workflows/reusable-code-ql.yml
+
+  trivy:
+    uses: ./.github/workflows/reusable-trivy.yml
+
+  test:
+    uses: ./.github/workflows/reusable-test.yml
+    needs: [ trivy, code-ql ]
+
+  buid-and-push-docker-image-to-ghcr:
+    needs: test
+    uses: ./.github/workflows/reusable-build&push_docker_image.yml
+    with:
+      registry: ghcr.io
+      image: ghcr.io/${{ github.actor }}/kids-wallet-api
