@@ -35,7 +35,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Restore dependencies
-        run: dotnet restore Src/API/KidsWallet.Api/KidsWallet.Api.csproj
+        run: dotnet restore Src/API/KidsWallet.API/KidsWallet.API.csproj
 
       - name: Build
         run: dotnet build Src/API/KidsWallet.API/KidsWallet.API.csproj --configuration Release --no-restore
