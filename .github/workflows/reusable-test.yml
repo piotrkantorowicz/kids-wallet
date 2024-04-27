@@ -14,8 +14,8 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: kids_wallet
-          POSTGRES_PASSWORD: Password123!
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
