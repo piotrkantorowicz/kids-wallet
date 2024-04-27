@@ -33,7 +33,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\API\KidsWallet.API\KidsWallet.API.csproj"/>
+        <ProjectReference Include="..\..\KidsWallet.API\KidsWallet.API.csproj"/>
     </ItemGroup>
 
 </Project>

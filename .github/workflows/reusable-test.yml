@@ -2,6 +2,13 @@ name: test
 on:
   workflow_dispatch:
   workflow_call:
+    secrets:
+      POSTGRES_USER:
+        required: true
+      POSTGRES_PASSWORD:
+        required: true
+      CODECOV_TOKEN:
+        required: true
 env:
   DOTNET_VERSION: "8.0.x"
 
@@ -14,8 +21,8 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_USER: kids_wallet
-          POSTGRES_PASSWORD: Password123!
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s

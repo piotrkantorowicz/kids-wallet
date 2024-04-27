@@ -1,7 +1,7 @@
 name: deploy
 on:
   push:
-    branches: [ main, dev ]
+    branches: [main, dev]
     paths:
       - Src/**
 
@@ -22,11 +22,15 @@ jobs:
 
   test:
     uses: ./.github/workflows/reusable-test.yml
-    needs: [ trivy, code-ql ]
+    needs: [trivy, code-ql]
+    secrets:
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   buid-and-push-docker-image-to-ghcr:
     needs: test
     uses: ./.github/workflows/reusable-build&push_docker_image.yml
     with:
-      registry: ghcr.io
-      image: ghcr.io/${{ github.actor }}/kids-wallet-api
+      REGISTRY: ghcr.io
+      IMAGE: ghcr.io/${{ github.actor }}/kids-wallet-api

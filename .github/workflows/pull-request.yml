@@ -51,3 +51,7 @@ jobs:
   test:
     uses: ./.github/workflows/reusable-test.yml
     needs: [trivy, code-ql]
+    secrets:
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

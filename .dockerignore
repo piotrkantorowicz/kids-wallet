@@ -1,0 +1,16 @@
+.github/
+.idea/
+Docs/
+.dockerignore
+.editorconfig
+.gitignore
+**/obj/
+**/bin/
+**/Tests/
+Dockerfile
+KidsWallet.sln
+KidsWallet.sln.DotSettings
+KidsWallet.sln.DotSettings.user
+LICENSE
+README.md
+tests.runsettings
