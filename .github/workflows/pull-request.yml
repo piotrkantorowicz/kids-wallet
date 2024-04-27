@@ -1,8 +1,8 @@
 name: pull-request
 on:
   pull_request:
-    branches: [ main, dev ]
-    types: [ opened, synchronize, reopened ]
+    branches: [main, dev]
+    types: [opened, synchronize, reopened]
 
 permissions:
   actions: read
@@ -22,17 +22,18 @@ jobs:
       changed: ${{ steps.filter_changes.outputs.changed }}
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - name: Check for source changes
         id: filter_changes
-        uses: dorny/paths-filter@v2.11.1
+        uses: dorny/paths-filter@v3.0.2
         with:
           filters: |
             changed:
               - 'Src/**'
+              - '.github/workflows/**'
       - name: Print changed value
         run: echo ${{ steps.filter_changes.outputs.changed }}
     needs: sanity
@@ -49,4 +50,4 @@ jobs:
 
   test:
     uses: ./.github/workflows/reusable-test.yml
-    needs: [ trivy, code-ql ]
+    needs: [trivy, code-ql]
