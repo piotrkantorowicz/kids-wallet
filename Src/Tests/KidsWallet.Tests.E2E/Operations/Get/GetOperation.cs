@@ -1,4 +1,6 @@
-﻿namespace KidsWallet.Tests.E2E.Operations.Get;
+﻿using NUnit.Framework;
+
+namespace KidsWallet.Tests.E2E.Operations.Get;
 
 internal sealed class GetOperation : OperationsTestBase
 {

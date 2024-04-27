@@ -2,6 +2,8 @@
 
 using KidsWallet.Commands.Operations;
 
+using NUnit.Framework;
+
 namespace KidsWallet.Tests.E2E.Operations.Put;
 
 internal class UpdateOperation : OperationsTestBase

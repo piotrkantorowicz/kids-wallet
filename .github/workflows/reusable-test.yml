@@ -1,0 +1,72 @@
+name: test
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  DOTNET_VERSION: "8.0.x"
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: kids_wallet
+          POSTGRES_PASSWORD: Password123!
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          source-url: https://nuget.pkg.github.com/piotrkantorowicz/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore 
+
+      - name: Tests
+        run: dotnet test --no-build --settings tests.runsettings --results-directory "TestResults" --collect:"XPlat Code Coverage"
+        
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4.3.3
+        with:
+          name: TestResults
+          path: TestResults
+
+      - name: Tests report generation
+        uses: dorny/test-reporter@v1.9.0
+        if: success() || failure()
+        with:
+          name: test-results (${{ env.DOTNET_VERSION }})
+          path: "TestResults/*.trx"
+          reporter: dotnet-trx
+          list-tests: "failed"

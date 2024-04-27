@@ -1,4 +1,6 @@
-﻿namespace KidsWallet.Tests.E2E.Operations.Delete;
+﻿using NUnit.Framework;
+
+namespace KidsWallet.Tests.E2E.Operations.Delete;
 
 internal sealed class DeleteOperation : OperationsTestBase
 {

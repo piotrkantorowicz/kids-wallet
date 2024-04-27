@@ -2,6 +2,8 @@
 
 using KidsWallet.Commands.Accounts;
 
+using NUnit.Framework;
+
 namespace KidsWallet.Tests.E2E.Accounts.Put;
 
 internal sealed class UpdateAccount : AccountsTestBase

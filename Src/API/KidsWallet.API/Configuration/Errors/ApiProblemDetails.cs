@@ -17,7 +17,7 @@ public sealed class ApiProblemDetails
     public static IDictionary<string, string[]> CreateErrorDictionary(ModelStateDictionary? modelState)
     {
         ArgumentNullException.ThrowIfNull(modelState);
-        Dictionary<string, string[]> errorDictionary = new Dictionary<string, string[]>(StringComparer.Ordinal);
+        Dictionary<string, string[]> errorDictionary = new(StringComparer.Ordinal);
         
         foreach ((string? property, ModelStateEntry? error) in modelState)
         {
