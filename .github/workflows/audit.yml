@@ -12,6 +12,10 @@ permissions:
 jobs:
   code-ql:
     uses: ./.github/workflows/reusable-code-ql.yml
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   trivy:
     uses: ./.github/workflows/reusable-trivy.yml
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

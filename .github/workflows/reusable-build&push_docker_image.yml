@@ -2,25 +2,27 @@ name: build and push docker image
 on:
   workflow_dispatch:
     inputs:
-      registry:
+      REGISTRY:
         description: "The docker registry"
         required: true
         type: string
-      image:
+      IMAGE:
         description: "The docker image name"
         required: true
         type: string
   workflow_call:
     inputs:
-      registry:
+      REGISTRY:
         description: "The docker registry"
         required: true
         type: string
-      image:
+      IMAGE:
         description: "The docker image name"
         required: true
         type: string
-
+    secrets: 
+      GITHUB_TOKEN: 
+          required: true
 jobs:
   build-and-push-docker-image:
     name: Build and push Docker image
@@ -36,7 +38,7 @@ jobs:
       - name: Log in to the GH container registry
         uses: docker/login-action@v3
         with:
-          registry: ${{ inputs.registry }}
+          registry: ${{ inputs.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -50,7 +52,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5.5.0
         with:
-          images: ${{ inputs.image }}
+          images: ${{ inputs.IMAGE }}
           tags: |
             type=sha
             latest
