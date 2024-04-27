@@ -1,5 +1,7 @@
 ﻿using KidsWallet.Commands.Wallets;
 
+using NUnit.Framework;
+
 namespace KidsWallet.Tests.E2E.Wallets.Put;
 
 internal sealed class UpdateWallet : WalletsTestBase
@@ -10,7 +12,7 @@ internal sealed class UpdateWallet : WalletsTestBase
         // Arrange
         await CreateWallet();
         
-        await WebApp.Host.Scenario(async x =>
+        await WebApp.Host.Scenario(x =>
         {
             string? newName = _faker.Random.String2(15);
             

@@ -1,4 +1,6 @@
-﻿namespace KidsWallet.Tests.E2E.Wallets.Post;
+﻿using NUnit.Framework;
+
+namespace KidsWallet.Tests.E2E.Wallets.Post;
 
 internal sealed class AddWallet : WalletsTestBase
 {

@@ -1,4 +1,6 @@
-﻿namespace KidsWallet.Tests.E2E.Wallets.Get;
+﻿using NUnit.Framework;
+
+namespace KidsWallet.Tests.E2E.Wallets.Get;
 
 internal sealed class GetWallet : WalletsTestBase
 {

@@ -1,4 +1,6 @@
-﻿namespace KidsWallet.Tests.E2E.Operations.Post;
+﻿using NUnit.Framework;
+
+namespace KidsWallet.Tests.E2E.Operations.Post;
 
 internal sealed class AddOperation : OperationsTestBase
 {

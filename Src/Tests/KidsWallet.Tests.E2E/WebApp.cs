@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Npgsql;
 
+using NUnit.Framework;
+
 using Weasel.Postgresql;
 
 namespace KidsWallet.Tests.E2E;

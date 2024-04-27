@@ -1,4 +1,6 @@
-﻿namespace KidsWallet.Tests.E2E.Wallets.Delete;
+﻿using NUnit.Framework;
+
+namespace KidsWallet.Tests.E2E.Wallets.Delete;
 
 internal sealed class DeleteWallet : WalletsTestBase
 {
@@ -8,7 +10,7 @@ internal sealed class DeleteWallet : WalletsTestBase
         // Arrange
         await CreateWallet();
         
-        await WebApp.Host.Scenario(async x =>
+        await WebApp.Host.Scenario(x =>
         {
             // Act
             x.Delete.Url($"/wallets/{_walletId}");
