@@ -38,7 +38,7 @@ jobs:
         run: dotnet restore Src/API/KidsWallet.Api/KidsWallet.Api.csproj
 
       - name: Build
-        run: dotnet build Src/API/KidsWallet.Api/KidsWallet.Api.csproj --configuration Release --no-restore
+        run: dotnet build Src/API/KidsWallet.API/KidsWallet.API.csproj --configuration Release --no-restore
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
