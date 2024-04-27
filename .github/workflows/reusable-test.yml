@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
   workflow_call:
     secrets:
-      GITHUB_TOKEN:
-        required: true
       POSTGRES_USER:
         required: true
       POSTGRES_PASSWORD:
+        required: true
+      CODECOV_TOKEN:
         required: true
 env:
   DOTNET_VERSION: "8.0.x"

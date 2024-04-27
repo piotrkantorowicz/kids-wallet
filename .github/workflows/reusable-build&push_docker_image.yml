@@ -20,9 +20,6 @@ on:
         description: "The docker image name"
         required: true
         type: string
-    secrets: 
-      GITHUB_TOKEN: 
-          required: true
 jobs:
   build-and-push-docker-image:
     name: Build and push Docker image
