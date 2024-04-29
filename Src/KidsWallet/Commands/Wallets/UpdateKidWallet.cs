@@ -7,8 +7,6 @@ using Wolverine.Attributes;
 
 namespace KidsWallet.Commands.Wallets;
 
-public sealed record UpdateKidWalletRequest(string Name);
-
 public sealed record UpdateKidWalletCommand(Guid WalletId, string Name);
 
 public sealed class UpdateKidWalletCommandValidator : AbstractValidator<UpdateKidWalletCommand>

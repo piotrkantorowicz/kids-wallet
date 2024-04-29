@@ -12,11 +12,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="KidsWallet.Tests.E2E"/>
+        <ProjectReference Include="..\KidsWallet.API.Proxy\KidsWallet.API.Proxy.csproj"/>
+        <ProjectReference Include="..\KidsWallet\KidsWallet.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\KidsWallet\KidsWallet.csproj"/>
+        <InternalsVisibleTo Include="KidsWallet.API.Tests.E2E"/>
     </ItemGroup>
 
     <ItemGroup>

@@ -8,22 +8,6 @@ using Wolverine.Attributes;
 
 namespace KidsWallet.Commands.Operations;
 
-public sealed record CreateKidAccountOperationRequest(
-    Guid OperationId,
-    Guid AccountId,
-    decimal Amount,
-    string Title,
-    DateTime DueDate,
-    CreateKidAccountOperationRequest_OperationType OperationType);
-
-public enum CreateKidAccountOperationRequest_OperationType
-{
-    None,
-    Income,
-    Expense,
-    Transfer
-}
-
 public sealed record CreateKidAccountOperationCommand(
     Guid KidAccountOperationId,
     Guid KidAccountId,
