@@ -13,7 +13,7 @@ public static class ServiceCollectionExtensions
         
         services.AddScoped(typeof(IKidsWalletApiClient), provider =>
         {
-            var kidsWalletClientFactory = provider.GetRequiredService<IKidsWalletClientFactory>();
+            IKidsWalletClientFactory kidsWalletClientFactory = provider.GetRequiredService<IKidsWalletClientFactory>();
             
             return kidsWalletClientFactory.CreateClient();
         });

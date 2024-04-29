@@ -15,7 +15,7 @@
         <PackageReference Include="WolverineFx" Version="2.5.0"/>
         <PackageReference Include="WolverineFx.FluentValidation" Version="2.5.0"/>
     </ItemGroup>
-    
+
     <ItemGroup>
         <ProjectReference Include="..\KidsWallet.API.Proxy\KidsWallet.API.Proxy.csproj"/>
     </ItemGroup>

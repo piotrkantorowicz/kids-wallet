@@ -11,7 +11,7 @@ internal sealed class GetOperation : OperationsTestBase
         await CreateOperation();
         
         // Act
-        Func<Task> act = async () => await WebAppClient.OperationsApi.GetOperation(id: _operationId);
+        Func<Task> act = async () => await WebAppClient.OperationsApi.GetOperation(_operationId);
         
         // Assert
         await act.Should().NotThrowAsync();

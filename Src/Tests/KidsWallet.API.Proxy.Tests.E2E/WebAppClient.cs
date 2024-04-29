@@ -20,7 +20,7 @@ public class WebAppClient
     [OneTimeSetUp]
     public void Init()
     {
-        var serviceProvider = new ServiceCollection()
+        ServiceProvider serviceProvider = new ServiceCollection()
             .AddKidsWalletProxy(new KidsWalletApiSettings
             {
                 BaseUrl = "http://localhost:5164",
@@ -28,7 +28,7 @@ public class WebAppClient
             })
             .BuildServiceProvider();
         
-        var kidsWalletApiClient = serviceProvider.GetRequiredService<IKidsWalletApiClient>();
+        IKidsWalletApiClient kidsWalletApiClient = serviceProvider.GetRequiredService<IKidsWalletApiClient>();
         AccountsApi = kidsWalletApiClient.GetAccountsApi();
         OperationsApi = kidsWalletApiClient.GetOperationsApi();
         WalletsApi = kidsWalletApiClient.GetWalletsApi();

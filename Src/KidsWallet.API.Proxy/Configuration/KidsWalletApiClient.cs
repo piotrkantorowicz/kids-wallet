@@ -9,7 +9,7 @@ using RestEase;
 
 namespace KidsWallet.API.Proxy.Configuration;
 
- internal sealed class KidsWalletApiClient : IKidsWalletApiClient
+internal sealed class KidsWalletApiClient : IKidsWalletApiClient
 {
     private static readonly JsonSerializerSettings JsonSerializerSettings = new()
     {
@@ -54,18 +54,18 @@ namespace KidsWallet.API.Proxy.Configuration;
         return GetApiClient<IWalletsApi>();
     }
     
+    public void Dispose()
+    {
+        _httpClient.Dispose();
+    }
+    
     private TApi GetApiClient<TApi>()
     {
         TApi apiClient = new RestClient(_httpClient)
         {
-            JsonSerializerSettings = JsonSerializerSettings,
+            JsonSerializerSettings = JsonSerializerSettings
         }.For<TApi>();
         
         return apiClient;
-    }
-    
-    public void Dispose()
-    {
-        _httpClient.Dispose();
     }
 }

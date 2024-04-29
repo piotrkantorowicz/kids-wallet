@@ -11,13 +11,14 @@ namespace KidsWallet.API.Proxy.Requests.Accounts;
 public interface IAccountsApi
 {
     [Get("{id}")]
-    Task<GetKidAccountResponse> GetAccount([Path] Guid id, [Query] Guid? kidWalletId = null, [Query] string? name = null,
-        [Query] decimal? balance = null, [Query] DateTime? updatedAt = null, [Query] DateTime? createdAt = null,
-        [Query] bool? includeKidAccountOperations = null);
+    Task<GetKidAccountResponse> GetAccount([Path] Guid id, [Query] Guid? kidWalletId = null,
+        [Query] string? name = null, [Query] decimal? balance = null, [Query] DateTime? updatedAt = null,
+        [Query] DateTime? createdAt = null, [Query] bool? includeKidAccountOperations = null);
     
     [Get]
-    Task<IReadOnlyCollection<GetKidAccountsResponse>> GetAccounts([Query] Guid? id = null, [Query] Guid? kidWalletId = null,
-        [Query] string? name = null, [Query] decimal? balance = null, [Query] DateTime? updatedAt = null, [Query] DateTime? createdAt = null,
+    Task<IReadOnlyCollection<GetKidAccountsResponse>> GetAccounts([Query] Guid? id = null,
+        [Query] Guid? kidWalletId = null, [Query] string? name = null, [Query] decimal? balance = null,
+        [Query] DateTime? updatedAt = null, [Query] DateTime? createdAt = null,
         [Query] bool? includeKidAccountOperations = null);
     
     [Post]

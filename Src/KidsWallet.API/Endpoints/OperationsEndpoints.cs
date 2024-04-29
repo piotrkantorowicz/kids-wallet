@@ -33,9 +33,8 @@ public static class OperationsEndpoints
                         [FromQuery] decimal? amount, [FromQuery] DateTime? dueDate, [FromQuery] DateTime? updatedAt,
                         [FromQuery] DateTime? createdAt, [FromServices] IMessageBus bus) =>
                     bus.InvokeAsync<IReadOnlyCollection<GetKidAccountOperationsResponse>>(
-                        new GetKidAccountOperationsQuery(
-                            KidAccountId: kidAccountId, Description: description, Amount: amount, DueDate: dueDate,
-                            CreatedAt: createdAt, UpdatedAt: updatedAt)))
+                        new GetKidAccountOperationsQuery(KidAccountId: kidAccountId, Description: description,
+                            Amount: amount, DueDate: dueDate, CreatedAt: createdAt, UpdatedAt: updatedAt)))
             .WithTags(Tag);
         
         app

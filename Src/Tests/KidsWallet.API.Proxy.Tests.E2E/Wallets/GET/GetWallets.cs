@@ -14,7 +14,7 @@ internal sealed class GetWallets : WalletsTestBase
         
         // Act
         Func<Task<IReadOnlyCollection<GetKidWalletsResponse>>> act = async () =>
-            await WebAppClient.WalletsApi.GetWallets(id: _walletId);
+            await WebAppClient.WalletsApi.GetWallets(_walletId);
         
         // Assert
         await act.Should().NotThrowAsync();

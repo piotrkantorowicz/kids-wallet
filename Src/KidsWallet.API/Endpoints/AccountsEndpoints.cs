@@ -32,10 +32,10 @@ public static class AccountsEndpoints
                 ([FromQuery] Guid? id, [FromQuery] Guid? kidWalletId, [FromQuery] string? name,
                         [FromQuery] decimal? balance, [FromQuery] DateTime? updatedAt, [FromQuery] DateTime? createdAt,
                         [FromQuery] bool? includeKidAccountOperations, [FromServices] IMessageBus bus) =>
-                    bus.InvokeAsync<IReadOnlyCollection<GetKidAccountsResponse>>(new GetKidAccountsQuery(KidWalletId: kidWalletId,
-                        Name: name,
-                        Balance: balance, CreatedAt: createdAt, UpdatedAt: updatedAt,
-                        IncludeKidAccountOperations: includeKidAccountOperations)))
+                    bus.InvokeAsync<IReadOnlyCollection<GetKidAccountsResponse>>(
+                        new GetKidAccountsQuery(KidWalletId: kidWalletId, Name: name, Balance: balance,
+                            CreatedAt: createdAt, UpdatedAt: updatedAt,
+                            IncludeKidAccountOperations: includeKidAccountOperations)))
             .WithTags(Tag);
         
         app
