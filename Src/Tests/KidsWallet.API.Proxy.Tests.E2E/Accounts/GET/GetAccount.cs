@@ -13,7 +13,7 @@ internal sealed class GetAccount : AccountsTestBase
         await CreateAccount();
         
         // Act
-        Func<Task<GetKidAccountResponse>> act = async () => await WebAppClient.AccountsApi.GetAccount(id: _accountId);
+        Func<Task<GetKidAccountResponse>> act = async () => await WebAppClient.AccountsApi.GetAccount(_accountId);
         
         // Assert
         await act.Should().NotThrowAsync();

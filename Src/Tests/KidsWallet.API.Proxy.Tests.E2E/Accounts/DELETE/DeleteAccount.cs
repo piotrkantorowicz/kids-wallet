@@ -11,7 +11,7 @@ internal sealed class DeleteAccount : AccountsTestBase
         await CreateAccount();
         
         // Act
-        Func<Task> act = async () => await WebAppClient.AccountsApi.DeleteAccount(id: _accountId);
+        Func<Task> act = async () => await WebAppClient.AccountsApi.DeleteAccount(_accountId);
         
         // Assert
         await act.Should().NotThrowAsync();

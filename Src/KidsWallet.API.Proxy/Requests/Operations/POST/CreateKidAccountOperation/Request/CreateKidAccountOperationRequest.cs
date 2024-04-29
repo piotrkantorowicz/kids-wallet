@@ -1,6 +1,5 @@
 ﻿namespace KidsWallet.API.Proxy.Requests.Operations.POST.CreateKidAccountOperation.Request;
 
-
 public sealed record CreateKidAccountOperationRequest(
     Guid OperationId,
     Guid AccountId,

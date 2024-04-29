@@ -1,6 +1,4 @@
-﻿using FluentAssertions;
-
-using KidsWallet.API.Proxy.Requests.Operations.PUT.UpdateKidAccountOperation.Request;
+﻿using KidsWallet.API.Proxy.Requests.Operations.PUT.UpdateKidAccountOperation.Request;
 
 namespace KidsWallet.API.Proxy.Tests.E2E.Operations.PUT;
 
@@ -18,7 +16,7 @@ internal class UpdateOperation : OperationsTestBase
         
         // Act
         Func<Task> act = async () =>
-            await WebAppClient.OperationsApi.UpdateOperation(id: _operationId, model: updateKidAccountOperationRequest);
+            await WebAppClient.OperationsApi.UpdateOperation(_operationId, updateKidAccountOperationRequest);
         
         // Assert
         await act.Invoke();

@@ -14,8 +14,7 @@ internal sealed class UpdateAccount : AccountsTestBase
         UpdateKidAccountRequest updateKidAccountRequest = new(_faker.Random.String2(15), _faker.Random.Decimal());
         
         // Act
-        Func<Task> act = async () =>
-            await WebAppClient.AccountsApi.UpdateAccount(id: _accountId, model: updateKidAccountRequest);
+        Func<Task> act = async () => await WebAppClient.AccountsApi.UpdateAccount(_accountId, updateKidAccountRequest);
         
         // Assert
         await act.Should().NotThrowAsync();

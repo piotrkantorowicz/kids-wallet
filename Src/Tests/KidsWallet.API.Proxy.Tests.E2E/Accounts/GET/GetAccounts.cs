@@ -14,7 +14,7 @@ internal sealed class GetAccounts : AccountsTestBase
         
         // Act
         Func<Task<IReadOnlyCollection<GetKidAccountsResponse>>> act = async () =>
-            await WebAppClient.AccountsApi.GetAccounts(id: _accountId);
+            await WebAppClient.AccountsApi.GetAccounts(_accountId);
         
         // Assert
         await act.Should().NotThrowAsync();
