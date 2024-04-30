@@ -23,7 +23,7 @@ public class WebAppClient
         ServiceProvider serviceProvider = new ServiceCollection()
             .AddKidsWalletProxy(new KidsWalletApiSettings
             {
-                BaseUrl = "http://localhost:5164",
+                BaseUrl = "http://localhost:8080",
                 Timeout = 5000
             })
             .BuildServiceProvider();
