@@ -6,7 +6,8 @@
                 <Configuration>
                     <Format>opencover</Format>
                     <Exclude>
-                        [KidsWallet.Tests.E2E]*
+                        [KidsWallet.API.Tests.E2E]*,
+                        [KidsWallet.API.Proxy.Tests.E2E]*,
                     </Exclude>
                     <ExcludeByFile>**/Migrations/*.cs,</ExcludeByFile>
                 </Configuration>
