@@ -12,6 +12,9 @@ env:
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/kids-wallet-proxy/output
   NUGET_SOURCE_URL: https://nuget.pkg.github.com/pkantorowicz
 
+permissions:
+  packages: write
+
 jobs:
   build:
     name: Release KidsWallet.Api.Proxy
