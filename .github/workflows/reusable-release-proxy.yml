@@ -14,7 +14,8 @@ env:
 
 jobs:
   build:
-    runs-on: self-hosted-ubuntu-2204
+    name: Release KidsWallet.Api.Proxy
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
         uses: actions/checkout@v2
