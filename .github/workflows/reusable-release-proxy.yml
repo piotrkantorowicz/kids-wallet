@@ -2,11 +2,7 @@ name: Build and deploy
 
 on:
   workflow_call:
-    inputs:
-      PRERELEASE:
-        description: "Determine if the package should be pushed as a prerelease"
-        required: true
-        type: boolean
+
 env:
   PROJECT_PATH: "Src/KidsWallet.API.Proxy/KidsWallet.API.Proxy.csproj"
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/kids-wallet-proxy/output
@@ -48,10 +44,10 @@ jobs:
         run: dotnet build ${{ env.PROJECT_PATH }} --configuration Release --no-restore
 
       - name: Pack KidsWallet.Api.Proxy.nupkg
-        if: github.event_name == 'push' && ${{ inputs.PRERELEASE }} == false
+        if: github.event_name == 'push'
         run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
       - name: Push KidsWallet.Api.Proxy.nupkg
-        if: github.event_name == 'push' && ${{ inputs.PRERELEASE }} == false
+        if: github.event_name == 'push'
         run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }} --skip-duplicate --no-symbols
 
       - name: Set prelease prefix (current date)
@@ -60,8 +56,8 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y%m%d%H%M%S')"
 
       - name: Pack Prerelease KidsWallet.Api.Proxy.nupkg
-        if: github.event_name == 'pull_request' && ${{ inputs.PRERELEASE }} == true
+        if: github.event_name == 'pull_request'
         run: dotnet pack ${{ env.PROJECT_PATH }} --no-restore --no-build --configuration Release --version-suffix ${{ steps.date.outputs.date }} --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
       - name: Push Prerelease KidsWallet.Api.Proxy.nupkg
-        if: github.event_name == 'pull_request' && ${{ inputs.PRERELEASE }} == true
+        if: github.event_name == 'pull_request'
         run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}/*.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s ${{ env.NUGET_SOURCE_URL }} --skip-duplicate --no-symbols

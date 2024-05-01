@@ -26,6 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\reusable-sanity.yml = .github\workflows\reusable-sanity.yml
 		.github\workflows\reusable-test.yml = .github\workflows\reusable-test.yml
 		.github\workflows\reusable-trivy.yml = .github\workflows\reusable-trivy.yml
+		.github\workflows\reusable-release-proxy.yml = .github\workflows\reusable-release-proxy.yml
 	EndProjectSection
 EndProject
 Global

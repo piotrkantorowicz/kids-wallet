@@ -56,8 +56,6 @@ jobs:
     uses: ./.github/workflows/reusable-release-proxy.yml
     if: needs.check_changes.outputs.changed == 'true'
     needs: [check_changes, trivy, code-ql, test]
-    with:
-      PRERELEASE: false
 
   buid-and-push-docker-image-to-ghcr:
     uses: ./.github/workflows/reusable-build&push_docker_image.yml

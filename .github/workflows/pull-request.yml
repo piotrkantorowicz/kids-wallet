@@ -61,5 +61,3 @@ jobs:
     uses: ./.github/workflows/reusable-release-proxy.yml
     if: needs.check_changes.outputs.changed == 'true'
     needs: [check_changes, trivy, code-ql, test]
-    with:
-      PRERELEASE: true
