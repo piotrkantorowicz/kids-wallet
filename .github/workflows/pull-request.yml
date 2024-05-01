@@ -1,8 +1,8 @@
 name: pull-request
 on:
   pull_request:
-    branches: [main]
-    types: [opened, synchronize, reopened]
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
 
 permissions:
   actions: read
@@ -51,7 +51,7 @@ jobs:
   test:
     uses: ./.github/workflows/reusable-test.yml
     if: needs.check_changes.outputs.changed == 'true'
-    needs: [check_changes, trivy, code-ql]
+    needs: [ check_changes, trivy, code-ql ]
     secrets:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
@@ -60,4 +60,4 @@ jobs:
   release-proxy:
     uses: ./.github/workflows/reusable-release-proxy.yml
     if: needs.check_changes.outputs.changed == 'true'
-    needs: [check_changes, trivy, code-ql, test]
+    needs: [ check_changes, trivy, code-ql, test ]
