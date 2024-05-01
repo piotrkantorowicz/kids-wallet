@@ -52,9 +52,6 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
-      - name: Run API
-        run: dotnet run --project Src/KidsWallet.API/KidsWallet.API.csproj --no-restore --no-build --configuration Release --launch-profile http
-
       - name: API tests
         run: dotnet test Src/Tests/KidsWallet.API.Tests.E2E/KidsWallet.API.Tests.E2E.csproj --no-build --configuration Release --settings tests.runsettings --results-directory "TestResults" --collect:"XPlat Code Coverage"
 
