@@ -14,14 +14,14 @@ using NUnit.Framework;
 
 using Weasel.Postgresql;
 
-namespace KidsWallet.Tests.E2E;
+namespace KidsWallet.API.Tests.E2E;
 
 [SetUpFixture]
 public class WebApp
 {
     private const string Environment = "E2E";
     
-    public static IAlbaHost Host { get; private set; }
+    public static IAlbaHost Host { get; private set; } = null!;
     
     [OneTimeSetUp]
     public async Task Init()

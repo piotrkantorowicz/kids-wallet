@@ -1,9 +1,9 @@
 ﻿using Bogus.Extensions;
 
 using KidsWallet.API.Proxy.Requests.Accounts.POST.CreateKidAccount.Request;
-using KidsWallet.Tests.E2E.Wallets;
+using KidsWallet.API.Tests.E2E.Wallets;
 
-namespace KidsWallet.Tests.E2E.Accounts;
+namespace KidsWallet.API.Tests.E2E.Accounts;
 
 internal abstract class AccountsTestBase : WalletsTestBase
 {

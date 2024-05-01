@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 
-namespace KidsWallet.Tests.E2E.Wallets.PUT;
+namespace KidsWallet.API.Tests.E2E.Wallets.PUT;
 
 internal sealed class UpdateWallet : WalletsTestBase
 {

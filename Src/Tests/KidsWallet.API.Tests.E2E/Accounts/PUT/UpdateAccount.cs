@@ -4,7 +4,7 @@ using KidsWallet.API.Proxy.Requests.Accounts.PUT.UpdateKidAccounts.Request;
 
 using NUnit.Framework;
 
-namespace KidsWallet.Tests.E2E.Accounts.PUT;
+namespace KidsWallet.API.Tests.E2E.Accounts.PUT;
 
 internal sealed class UpdateAccount : AccountsTestBase
 {

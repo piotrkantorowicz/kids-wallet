@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace KidsWallet.Tests.E2E.Accounts.DELETE;
+namespace KidsWallet.API.Tests.E2E.Accounts.DELETE;
 
 internal sealed class DeleteAccount : AccountsTestBase
 {

@@ -18,6 +18,7 @@
 
     <ItemGroup>
         <InternalsVisibleTo Include="KidsWallet.API.Tests.E2E"/>
+        <InternalsVisibleTo Include="KidsWallet.API.Proxy.Tests.E2E"/>
     </ItemGroup>
 
     <ItemGroup>

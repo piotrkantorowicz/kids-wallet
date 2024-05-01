@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace KidsWallet.Tests.E2E.Accounts.GET;
+namespace KidsWallet.API.Tests.E2E.Accounts.GET;
 
 internal sealed class GetAccounts : AccountsTestBase
 {

@@ -2,7 +2,7 @@
 
 using KidsWallet.API.Proxy.Requests.Wallets.POST.CreateKidWallet.Request;
 
-namespace KidsWallet.Tests.E2E.Wallets;
+namespace KidsWallet.API.Tests.E2E.Wallets;
 
 internal abstract class WalletsTestBase
 {

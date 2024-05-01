@@ -15,4 +15,9 @@ internal sealed class KidsWalletClientFactory : IKidsWalletClientFactory
     {
         return new KidsWalletApiClient(_apiSettings, _httpClientFactory);
     }
+    
+    public IKidsWalletApiClient CreateClient(HttpClient httpClient)
+    {
+        return new KidsWalletApiClient(_apiSettings, httpClient);
+    }
 }

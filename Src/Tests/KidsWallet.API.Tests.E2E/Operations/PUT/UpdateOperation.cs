@@ -4,7 +4,7 @@ using KidsWallet.API.Proxy.Requests.Operations.PUT.UpdateKidAccountOperation.Req
 
 using NUnit.Framework;
 
-namespace KidsWallet.Tests.E2E.Operations.PUT;
+namespace KidsWallet.API.Tests.E2E.Operations.PUT;
 
 internal class UpdateOperation : OperationsTestBase
 {

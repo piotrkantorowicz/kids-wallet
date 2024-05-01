@@ -13,6 +13,7 @@
         <PackageReference Include="Bogus" Version="35.5.0"/>
         <PackageReference Include="coverlet.collector" Version="6.0.0"/>
         <PackageReference Include="FluentAssertions" Version="6.12.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.0"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
         <PackageReference Include="NUnit" Version="3.14.0"/>
@@ -26,6 +27,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\KidsWallet.API.Proxy\KidsWallet.API.Proxy.csproj"/>
+        <ProjectReference Include="..\..\KidsWallet.API\KidsWallet.API.csproj"/>
     </ItemGroup>
 
 </Project>

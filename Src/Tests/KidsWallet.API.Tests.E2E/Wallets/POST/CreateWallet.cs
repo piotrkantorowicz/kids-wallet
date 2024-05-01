@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace KidsWallet.Tests.E2E.Wallets.POST;
+namespace KidsWallet.API.Tests.E2E.Wallets.POST;
 
 internal sealed class CreateWallet : WalletsTestBase
 {

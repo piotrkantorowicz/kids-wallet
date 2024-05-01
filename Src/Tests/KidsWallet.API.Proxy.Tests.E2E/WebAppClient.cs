@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace KidsWallet.API.Proxy.Tests.E2E;
 
 [SetUpFixture]
-public class WebAppClient
+internal class WebAppClient
 {
     public static IAccountsApi AccountsApi { get; private set; } = null!;
     
@@ -20,12 +20,14 @@ public class WebAppClient
     [OneTimeSetUp]
     public void Init()
     {
+        HttpClient httpClient = WebApp.Instance.GetHttpClient();
+        
         ServiceProvider serviceProvider = new ServiceCollection()
             .AddKidsWalletProxy(new KidsWalletApiSettings
             {
-                BaseUrl = "http://localhost:8080",
+                BaseUrl = "http://localhost:5164",
                 Timeout = 5000
-            })
+            }, httpClient)
             .BuildServiceProvider();
         
         IKidsWalletApiClient kidsWalletApiClient = serviceProvider.GetRequiredService<IKidsWalletApiClient>();
@@ -37,5 +39,6 @@ public class WebAppClient
     [OneTimeTearDown]
     public void Teardown()
     {
+        WebApp.Instance.Destroy();
     }
 }

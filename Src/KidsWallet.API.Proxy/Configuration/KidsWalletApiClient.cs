@@ -39,6 +39,20 @@ internal sealed class KidsWalletApiClient : IKidsWalletApiClient
         _httpClient.Timeout = TimeSpan.FromMilliseconds(settings.Timeout);
     }
     
+    public KidsWalletApiClient(KidsWalletApiSettings settings, HttpClient httpClient)
+    {
+        ArgumentNullException.ThrowIfNull(settings);
+        
+        if (settings.BaseUrl is null)
+        {
+            throw new ArgumentException(nameof(settings.BaseUrl));
+        }
+        
+        _httpClient = httpClient;
+        _httpClient.BaseAddress = new Uri(settings.BaseUrl);
+        _httpClient.Timeout = TimeSpan.FromMilliseconds(settings.Timeout);
+    }
+    
     public IAccountsApi GetAccountsApi()
     {
         return GetApiClient<IAccountsApi>();

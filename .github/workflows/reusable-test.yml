@@ -52,21 +52,11 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
+      - name: Run API
+        run: dotnet run --project Src/KidsWallet.API/KidsWallet.API.csproj --no-restore --no-build --configuration Release --launch-profile http
+
       - name: API tests
         run: dotnet test Src/Tests/KidsWallet.API.Tests.E2E/KidsWallet.API.Tests.E2E.csproj --no-build --configuration Release --settings tests.runsettings --results-directory "TestResults" --collect:"XPlat Code Coverage"
-
-      - name: Build docker image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          tags: kids-wallet-api:latest
-          push: false
-
-      - name: API tests    
-        uses: addnab/docker-run-action@v3
-        with:
-          image: kids-wallet-api:latest
-          run: echo "kids-wallet-api:latest are running..."
 
       - name: Contracts tests
         run: dotnet test Src/Tests/KidsWallet.API.Proxy.Tests.E2E/KidsWallet.API.Proxy.Tests.E2E.csproj --no-build --configuration Release --settings tests.runsettings --results-directory "TestResults" --collect:"XPlat Code Coverage"
