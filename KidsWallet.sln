@@ -12,6 +12,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API.Proxy", "Src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API.Proxy.Tests.E2E", "Src\Tests\KidsWallet.API.Proxy.Tests.E2E\KidsWallet.API.Proxy.Tests.E2E.csproj", "{59281363-D460-498B-98BC-A4844F8E9294}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{5E444E0E-2C3D-4A60-8AC0-6EAAB0F41CC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{F3AD83E8-17AC-4A5C-9F6D-A51D7A695B6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{0D98E45C-BABD-4628-9BE0-F83DA02E44E2}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\audit.yml = .github\workflows\audit.yml
+		.github\workflows\deploy.yml = .github\workflows\deploy.yml
+		.github\workflows\pull-request.yml = .github\workflows\pull-request.yml
+		.github\workflows\reusable-build&push_docker_image.yml = .github\workflows\reusable-build&push_docker_image.yml
+		.github\workflows\reusable-code-ql.yml = .github\workflows\reusable-code-ql.yml
+		.github\workflows\reusable-sanity.yml = .github\workflows\reusable-sanity.yml
+		.github\workflows\reusable-test.yml = .github\workflows\reusable-test.yml
+		.github\workflows\reusable-trivy.yml = .github\workflows\reusable-trivy.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +58,10 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{03318C9B-3627-4765-BE3E-720317FAC9DC} = {B20F2F4D-FD60-437D-BF32-84243239A281}
 		{59281363-D460-498B-98BC-A4844F8E9294} = {B20F2F4D-FD60-437D-BF32-84243239A281}
+		{B20F2F4D-FD60-437D-BF32-84243239A281} = {5E444E0E-2C3D-4A60-8AC0-6EAAB0F41CC0}
+		{102C4F50-0D33-4588-A56A-4A778058D721} = {5E444E0E-2C3D-4A60-8AC0-6EAAB0F41CC0}
+		{5184DC72-F9E8-41AA-8A9F-C0F8A8D9F476} = {5E444E0E-2C3D-4A60-8AC0-6EAAB0F41CC0}
+		{67B55091-B59D-49FF-B4DB-358CA66314A5} = {5E444E0E-2C3D-4A60-8AC0-6EAAB0F41CC0}
+		{0D98E45C-BABD-4628-9BE0-F83DA02E44E2} = {F3AD83E8-17AC-4A5C-9F6D-A51D7A695B6E}
 	EndGlobalSection
 EndGlobal
