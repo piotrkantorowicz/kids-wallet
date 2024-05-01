@@ -1,15 +1,12 @@
 name: Build and deploy
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - Src/KidsWallet.API.Proxy/**
-  pull_request:
-    branches: ["**"]
-    paths:
-      - Src/KidsWallet.API.Proxy/**
-
+  workflow_call:
+    inputs:
+      PRERELEASE:
+        description: "Determine if the package should be pushed as a prerelease"
+        required: true
+        type: boolean
 env:
   PROJECT_PATH: "Src/KidsWallet.API.Proxy/KidsWallet.API.Proxy.csproj"
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/kids-wallet-proxy/output
@@ -23,6 +20,17 @@ jobs:
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check for source changes
+        id: filter_changes
+        uses: dorny/paths-filter@v3.0.2
+        with:
+          filters: |
+            changed:
+              - 'Src/KidsWallet.API.Proxy/**
+
+      - name: Print changed value
+        run: echo ${{ steps.filter_changes.outputs.changed }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
@@ -39,10 +47,10 @@ jobs:
         run: dotnet build ${{env.PROJECT_PATH}} --configuration Release --no-restore
 
       - name: Pack KidsWallet.Api.Proxy.nupkg
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && ${{inputs.PRERELEASE}} == false
         run: dotnet pack ${{env.PROJECT_PATH}} --no-restore --no-build --configuration Release --output ${{env.PACKAGE_OUTPUT_DIRECTORY}}
       - name: Push KidsWallet.Api.Proxy.nupkg
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && ${{inputs.PRERELEASE}} == false
         run: dotnet nuget push ${{env.PACKAGE_OUTPUT_DIRECTORY}}/*.nupkg -k ${{secrets.GITHUB_TOKEN}} -s ${{env.NUGET_SOURCE_URL}} --skip-duplicate --no-symbols
 
       - name: Set prelease prefix (current date)
@@ -51,8 +59,8 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y%m%d%H%M%S')"
 
       - name: Pack Prerelease KidsWallet.Api.Proxy.nupkg
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && ${{inputs.PRERELEASE}} == true
         run: dotnet pack ${{env.PROJECT_PATH}} --no-restore --no-build --configuration Release --version-suffix ${{ steps.date.outputs.date }} --output ${{env.PACKAGE_OUTPUT_DIRECTORY}}
       - name: Push Prerelease KidsWallet.Api.Proxy.nupkg
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && ${{inputs.PRERELEASE}} == true
         run: dotnet nuget push ${{env.PACKAGE_OUTPUT_DIRECTORY}}/*.nupkg -k ${{secrets.GITHUB_TOKEN}} -s ${{env.NUGET_SOURCE_URL}} --skip-duplicate --no-symbols

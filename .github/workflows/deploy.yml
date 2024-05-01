@@ -2,8 +2,6 @@ name: deploy
 on:
   push:
     branches: [main]
-    paths:
-      - Src/**
 
 permissions:
   actions: read
@@ -14,23 +12,57 @@ permissions:
   security-events: write
 
 jobs:
+  check_changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: ${{ steps.filter_changes.outputs.changed }}
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v4.1.4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: Check for source changes
+        id: filter_changes
+        uses: dorny/paths-filter@v3.0.2
+        with:
+          filters: |
+            changed:
+              - 'Src/**'
+              - '.github/workflows/**'
+      - name: Print changed value
+        run: echo ${{ steps.filter_changes.outputs.changed }}
+
   code-ql:
     uses: ./.github/workflows/reusable-code-ql.yml
+    if: needs.check_changes.outputs.changed == 'true'
+    needs: check_changes
 
   trivy:
     uses: ./.github/workflows/reusable-trivy.yml
+    if: needs.check_changes.outputs.changed == 'true'
+    needs: check_changes
 
   test:
     uses: ./.github/workflows/reusable-test.yml
-    needs: [trivy, code-ql]
+    if: needs.check_changes.outputs.changed == 'true'
+    needs: [check_changes, trivy, code-ql]
     secrets:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+  release-proxy:
+    uses: ./.github/workflows/reusable-release-proxy.yml
+    if: needs.check_changes.outputs.changed == 'true'
+    needs: [check_changes, trivy, code-ql, test]
+    with:
+      PRERELEASE: false
+
   buid-and-push-docker-image-to-ghcr:
-    needs: test
     uses: ./.github/workflows/reusable-build&push_docker_image.yml
+    if: needs.check_changes.outputs.changed == 'true'
+    needs: [check_changes, trivy, code-ql, test]
     with:
       REGISTRY: ghcr.io
       IMAGE: ghcr.io/${{ github.actor }}/kids-wallet-api
