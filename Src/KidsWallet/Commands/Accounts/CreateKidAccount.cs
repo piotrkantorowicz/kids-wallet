@@ -8,8 +8,6 @@ using Wolverine.Attributes;
 
 namespace KidsWallet.Commands.Accounts;
 
-public sealed record CreateKidAccountRequest(Guid AccountId, Guid WalletId, string Name, decimal Balance);
-
 public sealed record CreateKidAccountCommand(Guid AccountId, Guid WalletId, string Name, decimal Balance);
 
 public sealed class CreateKidAccountCommandValidator : AbstractValidator<CreateKidAccountCommand>

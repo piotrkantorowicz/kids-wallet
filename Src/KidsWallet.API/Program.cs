@@ -1,6 +1,6 @@
 using KidsWallet.API.Configuration;
 using KidsWallet.API.Configuration.Exceptions;
-using KidsWallet.API.Endpoints.Crud;
+using KidsWallet.API.Endpoints;
 
 // Create the builder and register the services
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

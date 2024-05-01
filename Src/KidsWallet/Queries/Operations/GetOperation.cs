@@ -1,32 +1,10 @@
-﻿using KidsWallet.Persistence.Model.Operations;
+﻿using KidsWallet.API.Proxy.Requests.Operations.GET.GetKidAccountOperation.Request;
+using KidsWallet.API.Proxy.Requests.Operations.GET.GetKidAccountOperation.Response;
+using KidsWallet.Persistence.Model.Operations;
 using KidsWallet.Persistence.Model.Operations.Specifications;
 using KidsWallet.Services.Abstraction;
 
 namespace KidsWallet.Queries.Operations;
-
-public enum GetKidAccountOperationRequest_OperationType
-{
-    None,
-    Income,
-    Expense,
-    Transfer
-}
-
-public sealed record GetKidAccountOperationResponse(
-    Guid Id,
-    Guid KidAccountId,
-    string? Description,
-    DateTime DueDate,
-    decimal Amount,
-    GetKidAccountOperationResponse_OperationType OperationType);
-
-public enum GetKidAccountOperationResponse_OperationType
-{
-    None,
-    Income,
-    Expense,
-    Transfer
-}
 
 public sealed record GetKidAccountOperationQuery(
     Guid? Id = default,

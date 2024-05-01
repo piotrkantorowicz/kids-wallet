@@ -1,11 +1,15 @@
-﻿using KidsWallet.Commands.Wallets;
+﻿using KidsWallet.API.Proxy.Requests.Wallets.GET.GetKidWallet.Response;
+using KidsWallet.API.Proxy.Requests.Wallets.GET.GetKidWallets.Response;
+using KidsWallet.API.Proxy.Requests.Wallets.POST.CreateKidWallet.Request;
+using KidsWallet.API.Proxy.Requests.Wallets.PUT.UpdateKidWallet.Request;
+using KidsWallet.Commands.Wallets;
 using KidsWallet.Queries.Wallets;
 
 using Microsoft.AspNetCore.Mvc;
 
 using Wolverine;
 
-namespace KidsWallet.API.Endpoints.Crud;
+namespace KidsWallet.API.Endpoints;
 
 public static class WalletsEndpoints
 {
@@ -14,7 +18,7 @@ public static class WalletsEndpoints
     public static WebApplication AddWalletEndpoints(this WebApplication app)
     {
         app
-            .MapGet("/wallets/{id:guid}", ([FromRoute] Guid id, [FromQuery] Guid? kidId, [FromQuery] string? name,
+            .MapGet("/v1/wallets/{id:guid}", ([FromRoute] Guid id, [FromQuery] Guid? kidId, [FromQuery] string? name,
                 [FromQuery] DateTime? createdAt, [FromQuery] DateTime? updatedAt, [FromQuery] bool? includeKidAccounts,
                 [FromQuery] bool? includeKidAccountOperations, [FromServices] IMessageBus bus) =>
             {
@@ -27,31 +31,32 @@ public static class WalletsEndpoints
             .WithTags(Tag);
         
         app
-            .MapGet("/wallets", ([FromQuery] Guid? id, [FromQuery] Guid? kidId, [FromQuery] string? name,
+            .MapGet("/v1/wallets", ([FromQuery] Guid? id, [FromQuery] Guid? kidId, [FromQuery] string? name,
                 [FromQuery] DateTime? createdAt, [FromQuery] DateTime? updatedAt, [FromQuery] bool? includeKidAccounts,
                 [FromQuery] bool? includeKidAccountOperations, [FromServices] IMessageBus bus) =>
             {
-                Task<GetKidWalletsResponse> response = bus.InvokeAsync<GetKidWalletsResponse>(new GetKidWalletsQuery(id,
-                    kidId, name, createdAt, updatedAt, includeKidAccounts, includeKidAccountOperations));
+                Task<IReadOnlyCollection<GetKidWalletsResponse>> response =
+                    bus.InvokeAsync<IReadOnlyCollection<GetKidWalletsResponse>>(new GetKidWalletsQuery(id, kidId, name,
+                        createdAt, updatedAt, includeKidAccounts, includeKidAccountOperations));
                 
                 return response;
             })
             .WithTags(Tag);
         
         app
-            .MapPost("/wallets",
+            .MapPost("/v1/wallets",
                 ([FromBody] CreateKidWalletRequest request, [FromServices] IMessageBus bus) => bus.InvokeAsync(
                     new CreateKidWalletCommand(request.WalletId, request.KidId, request.Name)))
             .WithTags(Tag);
         
         app
-            .MapPut("/wallets/{id:guid}",
+            .MapPut("/v1/wallets/{id:guid}",
                 ([FromRoute] Guid id, [FromBody] UpdateKidWalletRequest request, [FromServices] IMessageBus bus) =>
                     bus.InvokeAsync(new UpdateKidWalletCommand(id, request.Name)))
             .WithTags(Tag);
         
         app
-            .MapDelete("/wallets/{id:guid}",
+            .MapDelete("/v1/wallets/{id:guid}",
                 ([FromRoute] Guid id, [FromServices] IMessageBus bus) =>
                     bus.InvokeAsync(new DeleteKidWalletCommand(id)))
             .WithTags(Tag);

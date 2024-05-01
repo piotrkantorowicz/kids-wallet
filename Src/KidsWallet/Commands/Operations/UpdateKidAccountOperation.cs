@@ -8,20 +8,6 @@ using Wolverine.Attributes;
 
 namespace KidsWallet.Commands.Operations;
 
-public sealed record UpdateKidAccountOperationRequest(
-    decimal Amount,
-    string Title,
-    DateTime DueDate,
-    UpdateKidAccountOperationRequest_OperationType OperationType);
-
-public enum UpdateKidAccountOperationRequest_OperationType
-{
-    None,
-    Income,
-    Expense,
-    Transfer
-}
-
 public sealed record UpdateKidAccountOperationCommand(
     Guid KidAccountOperationId,
     decimal Amount,
