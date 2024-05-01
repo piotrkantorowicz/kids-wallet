@@ -2,6 +2,14 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
+        <Authors>IMGARENA</Authors>
+        <Description>API data contracts and client.</Description>
+        <RepositoryUrl>https://github.com/piotrkantorowicz/kids-wallet</RepositoryUrl>
+        <PackageId>KidsWallet.Api.Proxy</PackageId>
+        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+        <RepositoryType>git</RepositoryType>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
