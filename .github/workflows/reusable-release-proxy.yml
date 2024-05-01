@@ -28,7 +28,7 @@ jobs:
         with:
           filters: |
             changed:
-              - 'Src/KidsWallet.API.Proxy/**
+              - 'Src/KidsWallet.API.Proxy/**'
 
       - name: Print changed value
         run: echo ${{ steps.filter_changes.outputs.changed }}
