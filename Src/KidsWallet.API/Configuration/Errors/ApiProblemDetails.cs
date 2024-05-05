@@ -12,9 +12,9 @@ public sealed class ApiProblemDetails
     
     public string? Type { get; set; }
     
-    public IDictionary<string, string[]> Errors { get; set; } = new Dictionary<string, string[]>();
+    public IDictionary<string, string[]>? Errors { get; set; } = new Dictionary<string, string[]>();
     
-    public static IDictionary<string, string[]> CreateErrorDictionary(ModelStateDictionary? modelState)
+    public static IDictionary<string, string[]>? CreateErrorDictionary(ModelStateDictionary? modelState)
     {
         ArgumentNullException.ThrowIfNull(modelState);
         Dictionary<string, string[]> errorDictionary = new(StringComparer.Ordinal);

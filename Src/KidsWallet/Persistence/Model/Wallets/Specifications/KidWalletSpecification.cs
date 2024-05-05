@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 
+using KidsWallet.Extensions;
 using KidsWallet.Persistence.Model.Abstraction;
 using KidsWallet.Persistence.Model.Accounts;
 using KidsWallet.Shared.Expressions.And;
@@ -62,5 +63,10 @@ public sealed record KidWalletSpecification(
         }
         
         return includes.ToArray();
+    }
+    
+    public override string ToString()
+    {
+        return this.Print();
     }
 }

@@ -85,7 +85,7 @@ internal static class StaticProblemDetailsSelector
             Title = problemDetails.Title,
             Detail = detail ?? problemDetails.Detail,
             Type = problemDetails.Type,
-            Errors = ApiProblemDetails.CreateErrorDictionary(modelState)
+            Errors = modelState is null ? null : ApiProblemDetails.CreateErrorDictionary(modelState)
         };
         
         return apiProblemDetails;

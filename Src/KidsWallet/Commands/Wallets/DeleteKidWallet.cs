@@ -7,13 +7,13 @@ using Wolverine.Attributes;
 
 namespace KidsWallet.Commands.Wallets;
 
-public sealed record DeleteKidWalletCommand(Guid WalletId);
+public sealed record DeleteKidWalletCommand(Guid KidWalletId);
 
 public sealed class DeleteKidWalletCommandValidator : AbstractValidator<DeleteKidWalletCommand>
 {
     public DeleteKidWalletCommandValidator()
     {
-        RuleFor(x => x.WalletId).NotEmpty();
+        RuleFor(x => x.KidWalletId).NotEmpty();
     }
 }
 
@@ -23,6 +23,6 @@ public static class DeleteKidWalletCommandHandler
     public static async Task Handle(DeleteKidWalletCommand command,
         ICrudOperationsService<KidWallet> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidWalletCrudOperationsService.DeleteAsync(command.WalletId, cancellationToken);
+        await kidWalletCrudOperationsService.DeleteAsync(command.KidWalletId, cancellationToken);
     }
 }

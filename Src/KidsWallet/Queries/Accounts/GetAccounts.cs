@@ -6,7 +6,7 @@ using KidsWallet.Services.Abstraction;
 namespace KidsWallet.Queries.Accounts;
 
 public sealed record GetKidAccountsQuery(
-    Guid? Id = default,
+    Guid? KidAccountId = default,
     Guid? KidWalletId = default,
     string? Name = default,
     decimal? Balance = default,
@@ -40,7 +40,7 @@ public static class GetKidAccountsQueryQueryHandler
     
     private static KidAccountSpecification Map(GetKidAccountsQuery query)
     {
-        return new KidAccountSpecification(query.Id, query.KidWalletId, query.Name, query.Balance, query.CreatedAt,
-            query.UpdatedAt, query.IncludeKidAccountOperations);
+        return new KidAccountSpecification(query.KidAccountId, query.KidWalletId, query.Name, query.Balance,
+            query.CreatedAt, query.UpdatedAt, query.IncludeKidAccountOperations);
     }
 }
