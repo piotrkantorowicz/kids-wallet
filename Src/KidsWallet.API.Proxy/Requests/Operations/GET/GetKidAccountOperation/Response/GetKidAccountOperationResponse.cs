@@ -1,7 +1,7 @@
 ﻿namespace KidsWallet.API.Proxy.Requests.Operations.GET.GetKidAccountOperation.Response;
 
 public sealed record GetKidAccountOperationResponse(
-    Guid Id,
+    Guid KidAccountOperationId,
     Guid KidAccountId,
     string? Description,
     DateTime DueDate,

@@ -8,13 +8,13 @@ using Wolverine.Attributes;
 
 namespace KidsWallet.Commands.Accounts;
 
-public sealed record CreateKidAccountCommand(Guid AccountId, Guid WalletId, string Name, decimal Balance);
+public sealed record CreateKidAccountCommand(Guid KidAccountId, Guid WalletId, string Name, decimal Balance);
 
 public sealed class CreateKidAccountCommandValidator : AbstractValidator<CreateKidAccountCommand>
 {
     public CreateKidAccountCommandValidator()
     {
-        RuleFor(x => x.AccountId).NotEmpty();
+        RuleFor(x => x.KidAccountId).NotEmpty();
         RuleFor(x => x.Name).NotEmpty().MaximumLength(100);
         RuleFor(x => x.Balance).GreaterThanOrEqualTo(0);
         RuleFor(x => x.WalletId).NotEmpty();
@@ -33,7 +33,7 @@ public static class CreateKidAccountCommandHandler
         
         await kidAccountCrudOperationsService.CreateAsync(command.WalletId, () => new KidAccount
         {
-            Id = command.AccountId,
+            Id = command.KidAccountId,
             Name = command.Name,
             KidWalletId = command.WalletId,
             KidWallet = kidWallet,
