@@ -39,7 +39,7 @@ public static class CreateKidAccountOperationCommandHandler
         KidAccount? kidAccount = await kidAccountCrudOperationsService.GetByIdAsync(id: command.KidAccountId,
             throwWhenNotFound: true, cancellationToken: cancellationToken);
 
-        await kidAccountOperationCrudOperationsService.CreateAsync(id: command.KidAccountId, createEntityFunc: () =>
+        await kidAccountOperationCrudOperationsService.CreateAsync(id: command.KidAccountId, createEntityFunction: () =>
             new KidAccountOperation
             {
                 Id = command.KidAccountOperationId,

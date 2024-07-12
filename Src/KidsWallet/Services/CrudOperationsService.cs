@@ -9,13 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KidsWallet.Services;
 
-public sealed class CrudOperationsService<TEntity>(KidsWalletDbContext kidsWalletDbContext, IClock clock)
-    : ICrudOperationsService<TEntity> where TEntity : class, IAuditableEntity<Guid>
+public sealed class CrudOperationsService<TEntity> : ICrudOperationsService<TEntity>
+    where TEntity : class, IAuditableEntity<Guid>
 {
-    private readonly IClock _clock = clock ?? throw new ArgumentNullException(paramName: nameof(clock));
+    private readonly IClock _clock;
+    private readonly KidsWalletDbContext _kidsWalletDbContext;
 
-    private readonly KidsWalletDbContext _kidsWalletDbContext =
-        kidsWalletDbContext ?? throw new ArgumentNullException(paramName: nameof(kidsWalletDbContext));
+    public CrudOperationsService(KidsWalletDbContext kidsWalletDbContext, IClock clock)
+    {
+        _clock = clock ?? throw new ArgumentNullException(paramName: nameof(clock));
+
+        _kidsWalletDbContext = kidsWalletDbContext ??
+                               throw new ArgumentNullException(paramName: nameof(kidsWalletDbContext));
+    }
 
     public async Task<TEntity?> GetByIdAsync(Guid id, bool throwWhenNotFound, CancellationToken cancellationToken,
         bool trackChanges = true)
@@ -63,8 +69,8 @@ public sealed class CrudOperationsService<TEntity>(KidsWalletDbContext kidsWalle
         return entities.ToList();
     }
 
-    public async Task<TEntity> CreateAsync(Guid id, Func<TEntity> createEntityFunc, CancellationToken cancellationToken,
-        bool saveChanges = true)
+    public async Task<TEntity> CreateAsync(Guid id, Func<TEntity> createEntityFunction,
+        CancellationToken cancellationToken, bool saveChanges = true)
     {
         TEntity? dbEntity = await GetByIdAsync(id: id, throwWhenNotFound: false, cancellationToken: cancellationToken);
 
@@ -73,28 +79,40 @@ public sealed class CrudOperationsService<TEntity>(KidsWalletDbContext kidsWalle
             throw new ConflictException(id: id);
         }
 
-        TEntity entity = createEntityFunc();
+        TEntity entity = createEntityFunction();
         entity.CreatedAt = _clock.UtcNow;
         await _kidsWalletDbContext.AddAsync(entity: entity, cancellationToken: cancellationToken);
-        await _kidsWalletDbContext.SaveChangesAsync(cancellationToken: cancellationToken);
+
+        if (saveChanges)
+        {
+            await _kidsWalletDbContext.SaveChangesAsync(cancellationToken: cancellationToken);
+        }
 
         return entity;
     }
 
-    public async Task UpdateAsync(Guid id, Func<TEntity, TEntity> updateEntityFunc, CancellationToken cancellationToken,
-        bool saveChanges = true)
+    public async Task UpdateAsync(Guid id, Func<TEntity, TEntity> updateEntityFunction,
+        CancellationToken cancellationToken, bool saveChanges = true)
     {
         TEntity? dbEntity = await GetByIdAsync(id: id, throwWhenNotFound: true, cancellationToken: cancellationToken);
-        TEntity entity = updateEntityFunc(arg: dbEntity!);
+        TEntity entity = updateEntityFunction(arg: dbEntity!);
         entity.UpdatedAt = _clock.UtcNow;
-        kidsWalletDbContext.Update(entity: updateEntityFunc(arg: entity));
-        await _kidsWalletDbContext.SaveChangesAsync(cancellationToken: cancellationToken);
+        _kidsWalletDbContext.Update(entity: updateEntityFunction(arg: entity));
+
+        if (saveChanges)
+        {
+            await _kidsWalletDbContext.SaveChangesAsync(cancellationToken: cancellationToken);
+        }
     }
 
     public async Task DeleteAsync(Guid id, CancellationToken cancellationToken, bool saveChanges = true)
     {
         TEntity? dbEntity = await GetByIdAsync(id: id, throwWhenNotFound: true, cancellationToken: cancellationToken);
         _kidsWalletDbContext.Remove(entity: dbEntity!);
-        await _kidsWalletDbContext.SaveChangesAsync(cancellationToken: cancellationToken);
+
+        if (saveChanges)
+        {
+            await _kidsWalletDbContext.SaveChangesAsync(cancellationToken: cancellationToken);
+        }
     }
 }

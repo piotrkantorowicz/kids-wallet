@@ -34,7 +34,7 @@ public static class UpdateKidAccountOperationCommandHandler
         CancellationToken cancellationToken)
     {
         await kidOperationCrudOperationsService.UpdateAsync(id: command.KidAccountOperationId,
-            updateEntityFunc: dbEntity =>
+            updateEntityFunction: dbEntity =>
             {
                 dbEntity.Amount = command.Amount;
                 dbEntity.Description = command.Title;

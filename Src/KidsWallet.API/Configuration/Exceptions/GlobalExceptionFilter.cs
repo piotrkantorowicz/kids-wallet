@@ -12,7 +12,7 @@ using DataAnnotationValidationException = System.ComponentModel.DataAnnotations.
 
 namespace KidsWallet.API.Configuration.Exceptions;
 
-public sealed class GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger) : ExceptionFilterAttribute
+public sealed class GlobalExceptionFilter : ExceptionFilterAttribute
 {
     private readonly Dictionary<Type, Action<ExceptionContext>> _exceptionHandlers = new()
     {
@@ -24,9 +24,16 @@ public sealed class GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger)
         { typeof(DataAnnotationValidationException), HandleInvalidModelStateException }
     };
 
+    private readonly ILogger<GlobalExceptionFilter> _logger;
+
+    public GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger)
+    {
+        _logger = logger;
+    }
+
     public override void OnException(ExceptionContext context)
     {
-        logger.LogError(exception: context.Exception, message: "Exception occurred: {Message}",
+        _logger.LogError(exception: context.Exception, message: "Exception occurred: {Message}",
             context.Exception.Message);
 
         Exception exception = context.Exception;

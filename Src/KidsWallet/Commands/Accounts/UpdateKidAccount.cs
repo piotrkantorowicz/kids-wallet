@@ -25,7 +25,7 @@ public static class UpdateKidAccountCommandHandler
     public static async Task Handle(UpdateKidAccountCommand command,
         ICrudOperationsService<KidAccount> kidAccountCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidAccountCrudOperationsService.UpdateAsync(id: command.KidAccountId, updateEntityFunc: dbEntity =>
+        await kidAccountCrudOperationsService.UpdateAsync(id: command.KidAccountId, updateEntityFunction: dbEntity =>
         {
             dbEntity.Name = command.Name;
             dbEntity.Balance = command.Balance;

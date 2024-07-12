@@ -13,10 +13,10 @@ public interface ICrudOperationsService<TEntity> where TEntity : class, IAuditab
     Task<IReadOnlyCollection<TEntity>> GetManyAsync(ISpecification<TEntity> specification,
         CancellationToken cancellationToken, bool trackChanges = true);
 
-    Task<TEntity> CreateAsync(Guid id, Func<TEntity> createEntityFunc, CancellationToken cancellationToken,
+    Task<TEntity> CreateAsync(Guid id, Func<TEntity> createEntityFunction, CancellationToken cancellationToken,
         bool saveChanges = true);
 
-    Task UpdateAsync(Guid id, Func<TEntity, TEntity> updateEntityFunc, CancellationToken cancellationToken,
+    Task UpdateAsync(Guid id, Func<TEntity, TEntity> updateEntityFunction, CancellationToken cancellationToken,
         bool saveChanges = true);
 
     Task DeleteAsync(Guid id, CancellationToken cancellationToken, bool saveChanges = true);

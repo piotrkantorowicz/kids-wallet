@@ -25,11 +25,12 @@ public static class CreateKidWalletCommandHandler
     public static async Task Handle(CreateKidWalletCommand command,
         ICrudOperationsService<KidWallet> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidWalletCrudOperationsService.CreateAsync(id: command.KidWalletId, createEntityFunc: () => new KidWallet
-        {
-            Id = command.KidWalletId,
-            KidId = command.KidId,
-            Name = command.Name
-        }, cancellationToken: cancellationToken);
+        await kidWalletCrudOperationsService.CreateAsync(id: command.KidWalletId, createEntityFunction: () =>
+            new KidWallet
+            {
+                Id = command.KidWalletId,
+                KidId = command.KidId,
+                Name = command.Name
+            }, cancellationToken: cancellationToken);
     }
 }

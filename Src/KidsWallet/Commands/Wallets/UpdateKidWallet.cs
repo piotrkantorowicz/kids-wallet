@@ -24,7 +24,7 @@ public static class UpdateKidWalletCommandHandler
     public static async Task Handle(UpdateKidWalletCommand command,
         ICrudOperationsService<KidWallet> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidWalletCrudOperationsService.UpdateAsync(id: command.KidWalletId, updateEntityFunc: dbEntity =>
+        await kidWalletCrudOperationsService.UpdateAsync(id: command.KidWalletId, updateEntityFunction: dbEntity =>
         {
             dbEntity.Name = command.Name;
 

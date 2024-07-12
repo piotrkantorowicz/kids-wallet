@@ -31,7 +31,7 @@ public static class CreateKidAccountCommandHandler
         KidWallet? kidWallet = await kidWalletCrudOperationsService.GetByIdAsync(id: command.KidWalletId,
             throwWhenNotFound: true, cancellationToken: cancellationToken);
 
-        await kidAccountCrudOperationsService.CreateAsync(id: command.KidWalletId, createEntityFunc: () =>
+        await kidAccountCrudOperationsService.CreateAsync(id: command.KidWalletId, createEntityFunction: () =>
             new KidAccount
             {
                 Id = command.KidAccountId,
