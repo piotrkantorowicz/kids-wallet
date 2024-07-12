@@ -9,15 +9,15 @@ internal class UpdateOperation : OperationsTestBase
     {
         // Arrange
         await CreateOperation();
-        
-        UpdateKidAccountOperationRequest updateKidAccountOperationRequest = new(Title: _faker.Random.String2(50),
-            Amount: _faker.Random.Decimal(), DueDate: _faker.Date.Past(),
-            OperationType: _faker.Random.Enum<UpdateKidAccountOperationRequest_OperationType>());
-        
+
+        UpdateKidAccountOperationRequest updateKidAccountOperationRequest =
+            new(Title: _faker.Random.String2(length: 50), Amount: _faker.Random.Decimal(), DueDate: _faker.Date.Past(),
+                OperationType: _faker.Random.Enum<UpdateKidAccountOperationRequest_OperationType>());
+
         // Act
         Func<Task> act = async () =>
-            await WebAppClient.OperationsApi.UpdateOperation(_operationId, updateKidAccountOperationRequest);
-        
+            await WebAppClient.OperationsApi.UpdateOperation(id: _operationId, model: updateKidAccountOperationRequest);
+
         // Assert
         await act.Invoke();
     }

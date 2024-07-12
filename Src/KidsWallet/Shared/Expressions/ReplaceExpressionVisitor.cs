@@ -6,6 +6,6 @@ public sealed class ReplaceExpressionVisitor(Expression oldValue, Expression? ne
 {
     public override Expression? Visit(Expression? node)
     {
-        return node == oldValue ? newValue : base.Visit(node);
+        return node == oldValue ? newValue : base.Visit(node: node);
     }
 }

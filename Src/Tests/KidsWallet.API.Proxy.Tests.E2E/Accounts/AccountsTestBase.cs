@@ -8,19 +8,19 @@ namespace KidsWallet.API.Proxy.Tests.E2E.Accounts;
 internal abstract class AccountsTestBase : WalletsTestBase
 {
     protected Guid _accountId;
-    
+
     protected async Task CreateAccount()
     {
         // Arrange
         await CreateWallet();
         _accountId = _faker.Random.Guid();
-        
-        CreateKidAccountRequest createKidAccountRequest = new(_accountId, _walletId,
-            _faker.Random.String2(30), _faker.Random.Decimal());
-        
+
+        CreateKidAccountRequest createKidAccountRequest = new(KidAccountId: _accountId, WalletId: _walletId,
+            Name: _faker.Random.String2(length: 30), Balance: _faker.Random.Decimal());
+
         // Act
-        Func<Task> act = async () => await WebAppClient.AccountsApi.CreateAccount(createKidAccountRequest);
-        
+        Func<Task> act = async () => await WebAppClient.AccountsApi.CreateAccount(model: createKidAccountRequest);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

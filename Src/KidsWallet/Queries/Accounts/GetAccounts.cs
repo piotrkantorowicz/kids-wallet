@@ -20,27 +20,31 @@ public static class GetKidAccountsQueryQueryHandler
         ICrudOperationsService<KidAccount> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
         IReadOnlyCollection<KidAccount> kidAccount =
-            await kidWalletCrudOperationsService.GetManyAsync(Map(query), cancellationToken);
-        
-        return Map(kidAccount);
+            await kidWalletCrudOperationsService.GetManyAsync(specification: Map(query: query),
+                cancellationToken: cancellationToken);
+
+        return Map(kidAccounts: kidAccount);
     }
-    
+
     private static IReadOnlyCollection<GetKidAccountsResponse> Map(IEnumerable<KidAccount> kidAccounts)
     {
         return kidAccounts
-            .Select(x => new GetKidAccountsResponse(x.Id, x.KidWalletId, x.Name, x.Balance,
-                x
-                    .KidAccountOperations.Select(y => new GetKidAccountsResponse_KidAccountOperation(y.Id,
-                        y.KidAccountId, y.Description, y.DueDate, y.Amount,
-                        (GetKidAccountsResponse_OperationType)y.OperationType))
+            .Select(selector: x => new GetKidAccountsResponse(KidAccountId: x.Id, KidWalletId: x.KidWalletId,
+                Name: x.Name, Balance: x.Balance,
+                Operations: x
+                    .KidAccountOperations.Select(selector: y => new GetKidAccountsResponse_KidAccountOperation(
+                        KidAccountOperationId: y.Id, KidAccountId: y.KidAccountId, Description: y.Description,
+                        DueDate: y.DueDate, Amount: y.Amount,
+                        OperationType: (GetKidAccountsResponse_OperationType)y.OperationType))
                     .ToList()))
             .ToList()
             .AsReadOnly();
     }
-    
+
     private static KidAccountSpecification Map(GetKidAccountsQuery query)
     {
-        return new KidAccountSpecification(query.KidAccountId, query.KidWalletId, query.Name, query.Balance,
-            query.CreatedAt, query.UpdatedAt, query.IncludeKidAccountOperations);
+        return new KidAccountSpecification(Id: query.KidAccountId, KidWalletId: query.KidWalletId, Name: query.Name,
+            Balance: query.Balance, CreatedAt: query.CreatedAt, UpdatedAt: query.UpdatedAt,
+            IncludeKidAccountOperations: query.IncludeKidAccountOperations);
     }
 }

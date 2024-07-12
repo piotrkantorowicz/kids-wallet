@@ -7,18 +7,18 @@ namespace KidsWallet.Persistence.Model.Accounts;
 public sealed class KidAccount : IAuditableEntity<Guid>
 {
     public Guid KidWalletId { get; set; }
-    
+
     public string? Name { get; set; }
-    
+
     public decimal Balance { get; set; }
-    
+
     public KidWallet? KidWallet { get; set; }
-    
+
     public HashSet<KidAccountOperation> KidAccountOperations { get; set; } = [];
-    
+
     public Guid Id { get; set; }
-    
+
     public DateTime CreatedAt { get; set; }
-    
+
     public DateTime? UpdatedAt { get; set; }
 }

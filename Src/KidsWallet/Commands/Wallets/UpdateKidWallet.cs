@@ -13,8 +13,8 @@ public sealed class UpdateKidWalletCommandValidator : AbstractValidator<UpdateKi
 {
     public UpdateKidWalletCommandValidator()
     {
-        RuleFor(x => x.KidWalletId).NotEmpty();
-        RuleFor(x => x.Name).NotEmpty().Length(5, 150);
+        RuleFor(expression: x => x.KidWalletId).NotEmpty();
+        RuleFor(expression: x => x.Name).NotEmpty().Length(min: 5, max: 150);
     }
 }
 
@@ -24,11 +24,11 @@ public static class UpdateKidWalletCommandHandler
     public static async Task Handle(UpdateKidWalletCommand command,
         ICrudOperationsService<KidWallet> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidWalletCrudOperationsService.UpdateAsync(command.KidWalletId, dbEntity =>
+        await kidWalletCrudOperationsService.UpdateAsync(id: command.KidWalletId, updateEntityFunc: dbEntity =>
         {
             dbEntity.Name = command.Name;
-            
+
             return dbEntity;
-        }, cancellationToken);
+        }, cancellationToken: cancellationToken);
     }
 }

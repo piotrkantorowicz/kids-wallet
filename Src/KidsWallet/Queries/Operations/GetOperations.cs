@@ -23,24 +23,27 @@ public static class GetKidAccountOperationsQueryQueryHandler
         CancellationToken cancellationToken)
     {
         IReadOnlyCollection<KidAccountOperation> kidAccountOperations =
-            await kidWalletCrudOperationsService.GetManyAsync(Map(query), cancellationToken);
-        
-        return Map(kidAccountOperations);
+            await kidWalletCrudOperationsService.GetManyAsync(specification: Map(query: query),
+                cancellationToken: cancellationToken);
+
+        return Map(kidAccountOperations: kidAccountOperations);
     }
-    
+
     private static IReadOnlyCollection<GetKidAccountOperationsResponse> Map(
         IEnumerable<KidAccountOperation> kidAccountOperations)
     {
         return kidAccountOperations
-            .Select(x => new GetKidAccountOperationsResponse(x.Id, x.KidAccountId, x.Description, Amount: x.Amount,
-                DueDate: x.DueDate, OperationType: (GetKidAccountOperationsResponse_OperationType)x.OperationType))
+            .Select(selector: x => new GetKidAccountOperationsResponse(KidAccountOperationId: x.Id,
+                KidAccountId: x.KidAccountId, Description: x.Description, Amount: x.Amount, DueDate: x.DueDate,
+                OperationType: (GetKidAccountOperationsResponse_OperationType)x.OperationType))
             .ToList()
             .AsReadOnly();
     }
-    
+
     private static KidAccountOperationSpecification Map(GetKidAccountOperationsQuery query)
     {
-        return new KidAccountOperationSpecification(query.KidAccountOperationId, query.KidAccountId, query.Description,
-            query.Amount, query.DueDate, (OperationType?)query.OperationType, query.CreatedAt, query.UpdatedAt);
+        return new KidAccountOperationSpecification(Id: query.KidAccountOperationId, KidAccountId: query.KidAccountId,
+            Description: query.Description, Amount: query.Amount, DueDate: query.DueDate,
+            OperationType: (OperationType?)query.OperationType, CreatedAt: query.CreatedAt, UpdatedAt: query.UpdatedAt);
     }
 }

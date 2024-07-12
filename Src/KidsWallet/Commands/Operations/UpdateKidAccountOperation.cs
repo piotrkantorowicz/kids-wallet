@@ -19,10 +19,10 @@ public sealed class UpdateKidAccountOperationCommandValidator : AbstractValidato
 {
     public UpdateKidAccountOperationCommandValidator()
     {
-        RuleFor(x => x.KidAccountOperationId).NotEmpty();
-        RuleFor(x => x.Amount);
-        RuleFor(x => x.Title).NotEmpty().Length(3, 200);
-        RuleFor(x => x.DueDate).NotEmpty();
+        RuleFor(expression: x => x.KidAccountOperationId).NotEmpty();
+        RuleFor(expression: x => x.Amount);
+        RuleFor(expression: x => x.Title).NotEmpty().Length(min: 3, max: 200);
+        RuleFor(expression: x => x.DueDate).NotEmpty();
     }
 }
 
@@ -33,15 +33,16 @@ public static class UpdateKidAccountOperationCommandHandler
         ICrudOperationsService<KidAccountOperation> kidOperationCrudOperationsService, IClock clock,
         CancellationToken cancellationToken)
     {
-        await kidOperationCrudOperationsService.UpdateAsync(command.KidAccountOperationId, dbEntity =>
-        {
-            dbEntity.Amount = command.Amount;
-            dbEntity.Description = command.Title;
-            dbEntity.DueDate = command.DueDate;
-            dbEntity.OperationType = command.OperationType;
-            dbEntity.UpdatedAt = clock.UtcNow;
-            
-            return dbEntity;
-        }, cancellationToken);
+        await kidOperationCrudOperationsService.UpdateAsync(id: command.KidAccountOperationId,
+            updateEntityFunc: dbEntity =>
+            {
+                dbEntity.Amount = command.Amount;
+                dbEntity.Description = command.Title;
+                dbEntity.DueDate = command.DueDate;
+                dbEntity.OperationType = command.OperationType;
+                dbEntity.UpdatedAt = clock.UtcNow;
+
+                return dbEntity;
+            }, cancellationToken: cancellationToken);
     }
 }

@@ -21,27 +21,29 @@ public static class GetKidAccountOperationQueryQueryHandler
     public static async Task<GetKidAccountOperationResponse?> Handle(GetKidAccountOperationQuery query,
         ICrudOperationsService<KidAccountOperation> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
-        KidAccountOperation? kidAccountOperation =
-            await kidWalletCrudOperationsService.GetAsync(Map(query), true, cancellationToken);
-        
-        return Map(kidAccountOperation);
+        KidAccountOperation? kidAccountOperation = await kidWalletCrudOperationsService.GetAsync(
+            specification: Map(query: query), throwWhenNotFound: true, cancellationToken: cancellationToken);
+
+        return Map(kidAccountOperation: kidAccountOperation);
     }
-    
+
     private static GetKidAccountOperationResponse? Map(KidAccountOperation? kidAccountOperation)
     {
         if (kidAccountOperation is null)
         {
             return null;
         }
-        
-        return new GetKidAccountOperationResponse(kidAccountOperation.Id, kidAccountOperation.KidAccountId,
-            kidAccountOperation.Description, Amount: kidAccountOperation.Amount, DueDate: kidAccountOperation.DueDate,
+
+        return new GetKidAccountOperationResponse(KidAccountOperationId: kidAccountOperation.Id,
+            KidAccountId: kidAccountOperation.KidAccountId, Description: kidAccountOperation.Description,
+            Amount: kidAccountOperation.Amount, DueDate: kidAccountOperation.DueDate,
             OperationType: (GetKidAccountOperationResponse_OperationType)kidAccountOperation.OperationType);
     }
-    
+
     private static KidAccountOperationSpecification Map(GetKidAccountOperationQuery query)
     {
-        return new KidAccountOperationSpecification(query.KidAccountOperationId, query.KidAccountId, query.Description,
-            query.Amount, query.DueDate, (OperationType?)query.OperationType, query.CreatedAt, query.UpdatedAt);
+        return new KidAccountOperationSpecification(Id: query.KidAccountOperationId, KidAccountId: query.KidAccountId,
+            Description: query.Description, Amount: query.Amount, DueDate: query.DueDate,
+            OperationType: (OperationType?)query.OperationType, CreatedAt: query.CreatedAt, UpdatedAt: query.UpdatedAt);
     }
 }

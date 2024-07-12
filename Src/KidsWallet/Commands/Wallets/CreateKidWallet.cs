@@ -13,9 +13,9 @@ public sealed class CreateKidWalletCommandValidator : AbstractValidator<CreateKi
 {
     public CreateKidWalletCommandValidator()
     {
-        RuleFor(x => x.KidWalletId).NotEmpty();
-        RuleFor(x => x.KidId).NotEmpty();
-        RuleFor(x => x.Name).NotEmpty().Length(5, 150);
+        RuleFor(expression: x => x.KidWalletId).NotEmpty();
+        RuleFor(expression: x => x.KidId).NotEmpty();
+        RuleFor(expression: x => x.Name).NotEmpty().Length(min: 5, max: 150);
     }
 }
 
@@ -25,11 +25,11 @@ public static class CreateKidWalletCommandHandler
     public static async Task Handle(CreateKidWalletCommand command,
         ICrudOperationsService<KidWallet> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidWalletCrudOperationsService.CreateAsync(command.KidWalletId, () => new KidWallet
+        await kidWalletCrudOperationsService.CreateAsync(id: command.KidWalletId, createEntityFunc: () => new KidWallet
         {
             Id = command.KidWalletId,
             KidId = command.KidId,
             Name = command.Name
-        }, cancellationToken);
+        }, cancellationToken: cancellationToken);
     }
 }

@@ -9,14 +9,14 @@ internal sealed class GetWallet : WalletsTestBase
     {
         // Arrange
         await CreateWallet();
-        
+
         // Act
-        await WebApp.Host.Scenario(x =>
+        await WebApp.Host.Scenario(configure: x =>
         {
-            x.Get.Url($"/v1/wallets/{_walletId}");
-            
+            x.Get.Url(relativeUrl: $"/v1/wallets/{_walletId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

@@ -9,12 +9,12 @@ internal sealed class GetWallets : WalletsTestBase
     {
         // Arrange
         // Act
-        await WebApp.Host.Scenario(x =>
+        await WebApp.Host.Scenario(configure: x =>
         {
-            x.Get.Url($"/v1/wallets?id={_walletId}");
-            
+            x.Get.Url(relativeUrl: $"/v1/wallets?id={_walletId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

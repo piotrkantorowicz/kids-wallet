@@ -13,18 +13,18 @@ internal sealed class UpdateAccount : AccountsTestBase
     {
         // Arrange
         await CreateAccount();
-        
-        await WebApp.Host.Scenario(x =>
+
+        await WebApp.Host.Scenario(configure: x =>
         {
-            string? newAccountName = _faker.Random.String2(10);
-            decimal newBalance = _faker.Random.Decimal2(150, 1000);
-            UpdateKidAccountRequest updateKidAccountRequest = new(newAccountName, newBalance);
-            
+            string? newAccountName = _faker.Random.String2(length: 10);
+            decimal newBalance = _faker.Random.Decimal2(min: 150, max: 1000);
+            UpdateKidAccountRequest updateKidAccountRequest = new(Name: newAccountName, Balance: newBalance);
+
             // Act
-            x.Put.Json(updateKidAccountRequest).ToUrl($"/v1/accounts/{_accountId}");
-            
+            x.Put.Json(input: updateKidAccountRequest).ToUrl(url: $"/v1/accounts/{_accountId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

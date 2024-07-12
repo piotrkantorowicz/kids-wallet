@@ -9,10 +9,10 @@ internal sealed class DeleteOperation : OperationsTestBase
     {
         // Arrange
         await CreateOperation();
-        
+
         // Act
-        Func<Task> act = async () => await WebAppClient.OperationsApi.DeleteOperation(_operationId);
-        
+        Func<Task> act = async () => await WebAppClient.OperationsApi.DeleteOperation(id: _operationId);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

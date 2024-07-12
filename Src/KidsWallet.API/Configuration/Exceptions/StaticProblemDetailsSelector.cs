@@ -69,13 +69,14 @@ internal static class StaticProblemDetailsSelector
             }
         }
     };
-    
+
     public static ApiProblemDetails Select(int statusCode, string? detail = null,
         ModelStateDictionary? modelState = null)
     {
-        return ToDetailedResponse(ProblemDetailsMap[statusCode], detail, modelState);
+        return ToDetailedResponse(problemDetails: ProblemDetailsMap[key: statusCode], detail: detail,
+            modelState: modelState);
     }
-    
+
     private static ApiProblemDetails ToDetailedResponse(ProblemDetails problemDetails, string? detail,
         ModelStateDictionary? modelState)
     {
@@ -85,9 +86,9 @@ internal static class StaticProblemDetailsSelector
             Title = problemDetails.Title,
             Detail = detail ?? problemDetails.Detail,
             Type = problemDetails.Type,
-            Errors = modelState is null ? null : ApiProblemDetails.CreateErrorDictionary(modelState)
+            Errors = modelState is null ? null : ApiProblemDetails.CreateErrorDictionary(modelState: modelState)
         };
-        
+
         return apiProblemDetails;
     }
 }

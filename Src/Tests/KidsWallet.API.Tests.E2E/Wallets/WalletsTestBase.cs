@@ -8,22 +8,22 @@ internal abstract class WalletsTestBase
 {
     protected readonly Faker _faker = new();
     protected Guid _walletId;
-    
+
     protected async Task CreateWallet()
     {
-        await WebApp.Host.Scenario(x =>
+        await WebApp.Host.Scenario(configure: x =>
         {
             // Arrange
             _walletId = _faker.Random.Guid();
             Guid kidId = _faker.Random.Guid();
-            string? name = _faker.Random.String2(10);
-            CreateKidWalletRequest createRequest = new(_walletId, kidId, name);
-            
+            string? name = _faker.Random.String2(length: 10);
+            CreateKidWalletRequest createRequest = new(KidWalletId: _walletId, KidId: kidId, Name: name);
+
             // Act
-            x.Post.Json(createRequest).ToUrl("/v1/wallets");
-            
+            x.Post.Json(input: createRequest).ToUrl(url: "/v1/wallets");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

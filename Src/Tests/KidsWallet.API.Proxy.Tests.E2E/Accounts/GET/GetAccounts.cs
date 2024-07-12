@@ -11,11 +11,11 @@ internal sealed class GetAccounts : AccountsTestBase
     {
         // Arrange
         await CreateAccount();
-        
+
         // Act
         Func<Task<IReadOnlyCollection<GetKidAccountsResponse>>> act = async () =>
-            await WebAppClient.AccountsApi.GetAccounts(_accountId);
-        
+            await WebAppClient.AccountsApi.GetAccounts(id: _accountId);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

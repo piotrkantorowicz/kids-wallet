@@ -13,24 +13,25 @@ internal class UpdateOperation : OperationsTestBase
     {
         // Arrange
         await CreateOperation();
-        
-        await WebApp.Host.Scenario(x =>
+
+        await WebApp.Host.Scenario(configure: x =>
         {
-            string? newTitle = _faker.Random.String2(10);
-            decimal newAmount = _faker.Random.Decimal2(-300, 300);
+            string? newTitle = _faker.Random.String2(length: 10);
+            decimal newAmount = _faker.Random.Decimal2(min: -300, max: 300);
             DateTime newDueDate = _faker.Date.Past().ToUniversalTime();
-            
+
             UpdateKidAccountOperationRequest_OperationType newOperationType = newAmount > 0
                 ? UpdateKidAccountOperationRequest_OperationType.Income
                 : UpdateKidAccountOperationRequest_OperationType.Expense;
-            
-            UpdateKidAccountOperationRequest updateRequest = new(newAmount, newTitle, newDueDate, newOperationType);
-            
+
+            UpdateKidAccountOperationRequest updateRequest = new(Amount: newAmount, Title: newTitle,
+                DueDate: newDueDate, OperationType: newOperationType);
+
             // Act
-            x.Put.Json(updateRequest).ToUrl($"/v1/operations/{_operationId}");
-            
+            x.Put.Json(input: updateRequest).ToUrl(url: $"/v1/operations/{_operationId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

@@ -9,12 +9,26 @@ public sealed class KidWalletEntityTypeConfiguration : IEntityTypeConfiguration<
 {
     public void Configure(EntityTypeBuilder<KidWallet> builder)
     {
-        builder.ToTable("kid_wallets");
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).HasColumnName("id").IsRequired().ValueGeneratedOnAdd();
-        builder.Property(x => x.Name).HasColumnName("name").IsRequired().HasMaxLength(100);
-        builder.HasMany(x => x.KidAccounts).WithOne(x => x.KidWallet).HasForeignKey(x => x.KidWalletId);
-        builder.Property(e => e.CreatedAt).HasColumnName("created_at").IsRequired();
-        builder.Property(e => e.UpdatedAt).HasColumnName("updated_at").IsRequired(false);
+        builder.ToTable(name: "kid_wallets");
+        builder.HasKey(keyExpression: x => x.Id);
+        builder.Property(propertyExpression: x => x.Id).HasColumnName(name: "id").IsRequired().ValueGeneratedOnAdd();
+
+        builder
+            .Property(propertyExpression: x => x.Name)
+            .HasColumnName(name: "name")
+            .IsRequired()
+            .HasMaxLength(maxLength: 100);
+
+        builder
+            .HasMany(navigationExpression: x => x.KidAccounts)
+            .WithOne(navigationExpression: x => x.KidWallet)
+            .HasForeignKey(foreignKeyExpression: x => x.KidWalletId);
+
+        builder.Property(propertyExpression: e => e.CreatedAt).HasColumnName(name: "created_at").IsRequired();
+
+        builder
+            .Property(propertyExpression: e => e.UpdatedAt)
+            .HasColumnName(name: "updated_at")
+            .IsRequired(required: false);
     }
 }

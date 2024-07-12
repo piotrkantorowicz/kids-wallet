@@ -20,12 +20,12 @@ public sealed class CreateKidAccountOperationCommandValidator : AbstractValidato
 {
     public CreateKidAccountOperationCommandValidator()
     {
-        RuleFor(x => x.KidAccountOperationId).NotEmpty();
-        RuleFor(x => x.KidAccountId).NotEmpty();
-        RuleFor(x => x.Amount);
-        RuleFor(x => x.Title).NotEmpty().Length(3, 200);
-        RuleFor(x => x.DueDate).NotEmpty();
-        RuleFor(x => x.OperationType).NotEmpty();
+        RuleFor(expression: x => x.KidAccountOperationId).NotEmpty();
+        RuleFor(expression: x => x.KidAccountId).NotEmpty();
+        RuleFor(expression: x => x.Amount);
+        RuleFor(expression: x => x.Title).NotEmpty().Length(min: 3, max: 200);
+        RuleFor(expression: x => x.DueDate).NotEmpty();
+        RuleFor(expression: x => x.OperationType).NotEmpty();
     }
 }
 
@@ -36,19 +36,20 @@ public static class CreateKidAccountOperationCommandHandler
         ICrudOperationsService<KidAccountOperation> kidAccountOperationCrudOperationsService,
         ICrudOperationsService<KidAccount> kidAccountCrudOperationsService, CancellationToken cancellationToken)
     {
-        KidAccount? kidAccount =
-            await kidAccountCrudOperationsService.GetByIdAsync(command.KidAccountId, true, cancellationToken);
-        
-        await kidAccountOperationCrudOperationsService.CreateAsync(command.KidAccountId, () => new KidAccountOperation
-        {
-            Id = command.KidAccountOperationId,
-            KidAccountId = command.KidAccountId,
-            KidAccount = kidAccount,
-            Amount = command.Amount,
-            Description = command.Title,
-            DueDate = command.DueDate,
-            CreatedAt = DateTime.UtcNow,
-            OperationType = command.OperationType
-        }, cancellationToken);
+        KidAccount? kidAccount = await kidAccountCrudOperationsService.GetByIdAsync(id: command.KidAccountId,
+            throwWhenNotFound: true, cancellationToken: cancellationToken);
+
+        await kidAccountOperationCrudOperationsService.CreateAsync(id: command.KidAccountId, createEntityFunc: () =>
+            new KidAccountOperation
+            {
+                Id = command.KidAccountOperationId,
+                KidAccountId = command.KidAccountId,
+                KidAccount = kidAccount,
+                Amount = command.Amount,
+                Description = command.Title,
+                DueDate = command.DueDate,
+                CreatedAt = DateTime.UtcNow,
+                OperationType = command.OperationType
+            }, cancellationToken: cancellationToken);
     }
 }

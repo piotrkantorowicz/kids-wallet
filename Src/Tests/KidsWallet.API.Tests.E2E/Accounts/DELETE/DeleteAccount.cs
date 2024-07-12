@@ -9,14 +9,14 @@ internal sealed class DeleteAccount : AccountsTestBase
     {
         // Arrange
         await CreateAccount();
-        
-        await WebApp.Host.Scenario(x =>
+
+        await WebApp.Host.Scenario(configure: x =>
         {
             // Act
-            x.Delete.Url($"/v1/accounts/{_accountId}");
-            
+            x.Delete.Url(relativeUrl: $"/v1/accounts/{_accountId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

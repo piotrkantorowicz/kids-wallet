@@ -7,25 +7,25 @@ using RestEase;
 
 namespace KidsWallet.API.Proxy.Requests.Operations;
 
-[BasePath("v1/operations"), Header("Cache-Control", "no-cache")]
+[BasePath(basePath: "v1/operations"), Header(name: "Cache-Control", value: "no-cache")]
 public interface IOperationsApi
 {
-    [Get("{id}")]
+    [Get(path: "{id}")]
     Task<GetKidAccountOperationResponse> GetOperation([Path] Guid id, [Query] Guid? kidAccountId = null,
         [Query] string? description = null, [Query] decimal? amount = null, [Query] DateTime? dueDate = null,
         [Query] DateTime? updatedAt = null, [Query] DateTime? createdAt = null);
-    
+
     [Get]
     Task<IReadOnlyCollection<GetKidAccountOperationsResponse>> GetOperations([Query] Guid? id = null,
         [Query] Guid? kidAccountId = null, [Query] string? description = null, [Query] decimal? amount = null,
         [Query] DateTime? dueDate = null, [Query] DateTime? updatedAt = null, [Query] DateTime? createdAt = null);
-    
+
     [Post]
     Task CreateOperation([Body] CreateKidAccountOperationRequest model);
-    
-    [Put("{id}")]
+
+    [Put(path: "{id}")]
     Task UpdateOperation([Path] Guid id, [Body] UpdateKidAccountOperationRequest model);
-    
-    [Delete("{id}")]
+
+    [Delete(path: "{id}")]
     Task DeleteOperation([Path] Guid id);
 }
