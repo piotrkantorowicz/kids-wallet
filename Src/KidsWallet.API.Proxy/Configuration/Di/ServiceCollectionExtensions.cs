@@ -8,18 +8,18 @@ public static class ServiceCollectionExtensions
         KidsWalletApiSettings apiSettings, HttpClient? httpClient = null)
     {
         services.AddHttpClient();
-        services.AddSingleton(apiSettings);
+        services.AddSingleton(implementationInstance: apiSettings);
         services.AddSingleton<IKidsWalletClientFactory, KidsWalletClientFactory>();
-        
-        services.AddScoped(typeof(IKidsWalletApiClient), provider =>
+
+        services.AddScoped(serviceType: typeof(IKidsWalletApiClient), implementationFactory: provider =>
         {
             IKidsWalletClientFactory kidsWalletClientFactory = provider.GetRequiredService<IKidsWalletClientFactory>();
-            
+
             return httpClient is null
                 ? kidsWalletClientFactory.CreateClient()
-                : kidsWalletClientFactory.CreateClient(httpClient);
+                : kidsWalletClientFactory.CreateClient(httpClient: httpClient);
         });
-        
+
         return services;
     }
 }

@@ -11,10 +11,10 @@ internal sealed class GetWallet : WalletsTestBase
     {
         // Arrange
         await CreateWallet();
-        
+
         // Act
-        Func<Task<GetKidWalletResponse>> act = async () => await WebAppClient.WalletsApi.GetWallet(_walletId);
-        
+        Func<Task<GetKidWalletResponse>> act = async () => await WebAppClient.WalletsApi.GetWallet(id: _walletId);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

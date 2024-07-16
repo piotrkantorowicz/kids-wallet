@@ -12,7 +12,7 @@ using DataAnnotationValidationException = System.ComponentModel.DataAnnotations.
 
 namespace KidsWallet.API.Configuration.Exceptions;
 
-public sealed class GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger) : ExceptionFilterAttribute
+public sealed class GlobalExceptionFilter : ExceptionFilterAttribute
 {
     private readonly Dictionary<Type, Action<ExceptionContext>> _exceptionHandlers = new()
     {
@@ -23,89 +23,100 @@ public sealed class GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger)
         { typeof(FluentValidationValidationException), HandleInvalidModelStateException },
         { typeof(DataAnnotationValidationException), HandleInvalidModelStateException }
     };
-    
+
+    private readonly ILogger<GlobalExceptionFilter> _logger;
+
+    public GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger)
+    {
+        _logger = logger;
+    }
+
     public override void OnException(ExceptionContext context)
     {
-        logger.LogError(context.Exception, "Exception occurred: {Message}", context.Exception.Message);
+        _logger.LogError(exception: context.Exception, message: "Exception occurred: {Message}",
+            context.Exception.Message);
+
         Exception exception = context.Exception;
         Type type = exception.GetType();
-        
-        if (_exceptionHandlers.TryGetValue(type, out Action<ExceptionContext>? handler))
+
+        if (_exceptionHandlers.TryGetValue(key: type, value: out Action<ExceptionContext>? handler))
         {
-            handler.Invoke(context);
+            handler.Invoke(obj: context);
         }
         else
         {
-            HandleUnknownException(context);
+            HandleUnknownException(exceptionContext: context);
         }
     }
-    
+
     private static void HandleInvalidModelStateException(ExceptionContext exceptionContext)
     {
         ModelStateDictionary modelState = new();
-        
+
         switch (exceptionContext.Exception)
         {
             case FluentValidationValidationException validationException:
                 {
                     foreach (ValidationFailure error in validationException.Errors)
                     {
-                        modelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                        modelState.AddModelError(key: error.PropertyName, errorMessage: error.ErrorMessage);
                     }
-                    
+
                     break;
                 }
             case DataAnnotationValidationException dataAnnotationValidationException:
                 {
                     foreach (string memberName in dataAnnotationValidationException.ValidationResult.MemberNames)
                     {
-                        modelState.AddModelError(memberName,
-                            dataAnnotationValidationException.ValidationResult.ErrorMessage ?? string.Empty);
+                        modelState.AddModelError(key: memberName,
+                            errorMessage: dataAnnotationValidationException.ValidationResult.ErrorMessage ??
+                                          string.Empty);
                     }
-                    
+
                     break;
                 }
         }
-        
-        HandleException(exceptionContext, StatusCodes.Status422UnprocessableEntity, modelState);
+
+        HandleException(exceptionContext: exceptionContext, statusCode: StatusCodes.Status422UnprocessableEntity,
+            modelState: modelState);
     }
-    
+
     private static void HandleNotFoundException(ExceptionContext exceptionContext)
     {
-        HandleException(exceptionContext, StatusCodes.Status404NotFound);
+        HandleException(exceptionContext: exceptionContext, statusCode: StatusCodes.Status404NotFound);
     }
-    
+
     private static void HandleConflictException(ExceptionContext exceptionContext)
     {
-        HandleException(exceptionContext, StatusCodes.Status409Conflict);
+        HandleException(exceptionContext: exceptionContext, statusCode: StatusCodes.Status409Conflict);
     }
-    
+
     private static void HandleUnauthorizedAccessException(ExceptionContext exceptionContext)
     {
-        HandleException(exceptionContext, StatusCodes.Status401Unauthorized);
+        HandleException(exceptionContext: exceptionContext, statusCode: StatusCodes.Status401Unauthorized);
     }
-    
+
     private static void HandleForbiddenAccessException(ExceptionContext exceptionContext)
     {
-        HandleException(exceptionContext, StatusCodes.Status403Forbidden);
+        HandleException(exceptionContext: exceptionContext, statusCode: StatusCodes.Status403Forbidden);
     }
-    
+
     private static void HandleUnknownException(ExceptionContext exceptionContext)
     {
-        HandleException(exceptionContext, StatusCodes.Status500InternalServerError);
+        HandleException(exceptionContext: exceptionContext, statusCode: StatusCodes.Status500InternalServerError);
     }
-    
+
     private static void HandleException(ExceptionContext exceptionContext, int statusCode,
         ModelStateDictionary? modelState = null)
     {
-        ApiProblemDetails details =
-            StaticProblemDetailsSelector.Select(statusCode, exceptionContext.Exception.Message, modelState);
-        
-        exceptionContext.Result = new ObjectResult(details)
+        ApiProblemDetails details = StaticProblemDetailsSelector.Select(statusCode: statusCode,
+            detail: exceptionContext.Exception.Message, modelState: modelState);
+
+        exceptionContext.Result = new ObjectResult(value: details)
         {
             StatusCode = statusCode
         };
-        
+
         exceptionContext.ExceptionHandled = true;
     }
 }

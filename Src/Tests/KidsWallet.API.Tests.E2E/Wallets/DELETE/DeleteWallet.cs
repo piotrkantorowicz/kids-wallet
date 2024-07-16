@@ -9,14 +9,14 @@ internal sealed class DeleteWallet : WalletsTestBase
     {
         // Arrange
         await CreateWallet();
-        
-        await WebApp.Host.Scenario(x =>
+
+        await WebApp.Host.Scenario(configure: x =>
         {
             // Act
-            x.Delete.Url($"/v1/wallets/{_walletId}");
-            
+            x.Delete.Url(relativeUrl: $"/v1/wallets/{_walletId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

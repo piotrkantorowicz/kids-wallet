@@ -9,14 +9,14 @@ internal sealed class GetOperation : OperationsTestBase
     {
         // Arrange
         await CreateOperation();
-        
-        await WebApp.Host.Scenario(x =>
+
+        await WebApp.Host.Scenario(configure: x =>
         {
             // Act
-            x.Get.Url($"/v1/operations/{_operationId}");
-            
+            x.Get.Url(relativeUrl: $"/v1/operations/{_operationId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

@@ -9,10 +9,10 @@ internal sealed class DeleteWallet : WalletsTestBase
     {
         // Arrange
         await CreateWallet();
-        
+
         // Act
-        Func<Task> act = async () => await WebAppClient.WalletsApi.DeleteWallet(_walletId);
-        
+        Func<Task> act = async () => await WebAppClient.WalletsApi.DeleteWallet(id: _walletId);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

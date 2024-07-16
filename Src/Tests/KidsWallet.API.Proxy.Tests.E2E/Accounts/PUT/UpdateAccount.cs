@@ -11,11 +11,14 @@ internal sealed class UpdateAccount : AccountsTestBase
     {
         // Arrange
         await CreateAccount();
-        UpdateKidAccountRequest updateKidAccountRequest = new(_faker.Random.String2(15), _faker.Random.Decimal());
-        
+
+        UpdateKidAccountRequest updateKidAccountRequest =
+            new(Name: _faker.Random.String2(length: 15), Balance: _faker.Random.Decimal());
+
         // Act
-        Func<Task> act = async () => await WebAppClient.AccountsApi.UpdateAccount(_accountId, updateKidAccountRequest);
-        
+        Func<Task> act = async () =>
+            await WebAppClient.AccountsApi.UpdateAccount(id: _accountId, model: updateKidAccountRequest);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

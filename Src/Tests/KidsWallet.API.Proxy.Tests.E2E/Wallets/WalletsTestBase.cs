@@ -10,17 +10,17 @@ public abstract class WalletsTestBase
 {
     protected readonly Faker _faker = new();
     protected Guid _walletId;
-    
+
     protected async Task CreateWallet()
     {
         _walletId = _faker.Random.Guid();
-        
-        CreateKidWalletRequest createKidAccountRequest = new(_walletId,
-            _faker.Random.Guid(), _faker.Random.String2(15));
-        
+
+        CreateKidWalletRequest createKidAccountRequest = new(KidWalletId: _walletId, KidId: _faker.Random.Guid(),
+            Name: _faker.Random.String2(length: 15));
+
         // Act
-        Func<Task> act = async () => await WebAppClient.WalletsApi.CreateWallet(createKidAccountRequest);
-        
+        Func<Task> act = async () => await WebAppClient.WalletsApi.CreateWallet(model: createKidAccountRequest);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

@@ -13,9 +13,9 @@ public sealed class UpdateKidAccountCommandValidator : AbstractValidator<UpdateK
 {
     public UpdateKidAccountCommandValidator()
     {
-        RuleFor(x => x.KidAccountId).NotEmpty();
-        RuleFor(x => x.Name).NotEmpty().MaximumLength(50);
-        RuleFor(x => x.Balance).GreaterThanOrEqualTo(0);
+        RuleFor(expression: x => x.KidAccountId).NotEmpty();
+        RuleFor(expression: x => x.Name).NotEmpty().MaximumLength(maximumLength: 50);
+        RuleFor(expression: x => x.Balance).GreaterThanOrEqualTo(valueToCompare: 0);
     }
 }
 
@@ -25,12 +25,12 @@ public static class UpdateKidAccountCommandHandler
     public static async Task Handle(UpdateKidAccountCommand command,
         ICrudOperationsService<KidAccount> kidAccountCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidAccountCrudOperationsService.UpdateAsync(command.KidAccountId, dbEntity =>
+        await kidAccountCrudOperationsService.UpdateAsync(id: command.KidAccountId, updateEntityFunction: dbEntity =>
         {
             dbEntity.Name = command.Name;
             dbEntity.Balance = command.Balance;
-            
+
             return dbEntity;
-        }, cancellationToken);
+        }, cancellationToken: cancellationToken);
     }
 }

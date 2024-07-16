@@ -9,14 +9,29 @@ public sealed class KidAccountEntityTypeConfiguration : IEntityTypeConfiguration
 {
     public void Configure(EntityTypeBuilder<KidAccount> builder)
     {
-        builder.ToTable("kid_accounts");
-        builder.HasKey(x => x.Id);
-        builder.Property(x => x.Id).HasColumnName("id").IsRequired().ValueGeneratedOnAdd();
-        builder.Property(x => x.Name).HasColumnName("name").IsRequired().HasMaxLength(100);
-        builder.Property(x => x.KidWalletId).HasColumnName("kid_wallet_id").IsRequired();
-        builder.Property(x => x.Balance).HasColumnName("balance").IsRequired();
-        builder.HasMany(x => x.KidAccountOperations).WithOne(x => x.KidAccount).HasForeignKey(x => x.KidAccountId);
-        builder.Property(e => e.CreatedAt).HasColumnName("created_at").IsRequired();
-        builder.Property(e => e.UpdatedAt).HasColumnName("updated_at").IsRequired(false);
+        builder.ToTable(name: "kid_accounts");
+        builder.HasKey(keyExpression: x => x.Id);
+        builder.Property(propertyExpression: x => x.Id).HasColumnName(name: "id").IsRequired().ValueGeneratedOnAdd();
+
+        builder
+            .Property(propertyExpression: x => x.Name)
+            .HasColumnName(name: "name")
+            .IsRequired()
+            .HasMaxLength(maxLength: 100);
+
+        builder.Property(propertyExpression: x => x.KidWalletId).HasColumnName(name: "kid_wallet_id").IsRequired();
+        builder.Property(propertyExpression: x => x.Balance).HasColumnName(name: "balance").IsRequired();
+
+        builder
+            .HasMany(navigationExpression: x => x.KidAccountOperations)
+            .WithOne(navigationExpression: x => x.KidAccount)
+            .HasForeignKey(foreignKeyExpression: x => x.KidAccountId);
+
+        builder.Property(propertyExpression: e => e.CreatedAt).HasColumnName(name: "created_at").IsRequired();
+
+        builder
+            .Property(propertyExpression: e => e.UpdatedAt)
+            .HasColumnName(name: "updated_at")
+            .IsRequired(required: false);
     }
 }

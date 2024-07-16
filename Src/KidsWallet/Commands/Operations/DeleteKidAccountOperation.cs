@@ -13,7 +13,7 @@ public sealed class DeleteKidAccountOperationCommandValidator : AbstractValidato
 {
     public DeleteKidAccountOperationCommandValidator()
     {
-        RuleFor(x => x.KidAccountOperationId).NotEmpty();
+        RuleFor(expression: x => x.KidAccountOperationId).NotEmpty();
     }
 }
 
@@ -24,6 +24,7 @@ public static class DeleteKidAccountOperationCommandHandler
         ICrudOperationsService<KidAccountOperation> kidOperationCrudOperationsService,
         CancellationToken cancellationToken)
     {
-        await kidOperationCrudOperationsService.DeleteAsync(command.KidAccountOperationId, cancellationToken);
+        await kidOperationCrudOperationsService.DeleteAsync(id: command.KidAccountOperationId,
+            cancellationToken: cancellationToken);
     }
 }

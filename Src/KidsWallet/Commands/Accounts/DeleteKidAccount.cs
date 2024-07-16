@@ -13,7 +13,7 @@ public sealed class DeleteKidAccountCommandValidator : AbstractValidator<DeleteK
 {
     public DeleteKidAccountCommandValidator()
     {
-        RuleFor(x => x.KidAccountId).NotEmpty();
+        RuleFor(expression: x => x.KidAccountId).NotEmpty();
     }
 }
 
@@ -23,6 +23,7 @@ public static class DeleteKidAccountCommandHandler
     public static async Task Handle(DeleteKidAccountCommand command,
         ICrudOperationsService<KidAccount> kidAccountCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidAccountCrudOperationsService.DeleteAsync(command.KidAccountId, cancellationToken);
+        await kidAccountCrudOperationsService.DeleteAsync(id: command.KidAccountId,
+            cancellationToken: cancellationToken);
     }
 }

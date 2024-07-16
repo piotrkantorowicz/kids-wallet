@@ -9,24 +9,24 @@ public static class SpecificationExtensions
     {
         StringBuilder properties = new();
         PropertyInfo[] propertiesInfo = typeof(T).GetProperties();
-        
+
         foreach (PropertyInfo property in propertiesInfo)
         {
-            object? value = property.GetValue(specification);
-            
+            object? value = property.GetValue(obj: specification);
+
             if (value == null)
             {
                 continue;
             }
-            
+
             if (properties.Length > 0)
             {
-                properties.Append(" and ");
+                properties.Append(value: " and ");
             }
-            
-            properties.Append($"{property.Name}: {value}");
+
+            properties.Append(handler: $"{property.Name}: {value}");
         }
-        
+
         return properties.ToString();
     }
 }

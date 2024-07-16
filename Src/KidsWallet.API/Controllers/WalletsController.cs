@@ -11,47 +11,51 @@ using Wolverine;
 
 namespace KidsWallet.API.Controllers;
 
-[ApiController, Route("v1/wallets")]
+[ApiController, Route(template: "v1/wallets")]
 public sealed class WalletsController : ControllerBase
 {
     private readonly IMessageBus _messageBus;
-    
+
     public WalletsController(IMessageBus messageBus)
     {
-        _messageBus = messageBus ?? throw new ArgumentNullException(nameof(messageBus));
+        _messageBus = messageBus ?? throw new ArgumentNullException(paramName: nameof(messageBus));
     }
-    
-    [HttpGet("{id:guid}")]
+
+    [HttpGet(template: "{id:guid}")]
     public async Task<GetKidWalletResponse> GetWallet(Guid id, Guid? kidId, string? name, DateTime? createdAt,
         DateTime? updatedAt, bool? includeKidAccounts, bool? includeKidAccountOperations)
     {
-        return await _messageBus.InvokeAsync<GetKidWalletResponse>(new GetKidWalletQuery(id, kidId, name, createdAt,
-            updatedAt, includeKidAccounts, includeKidAccountOperations));
+        return await _messageBus.InvokeAsync<GetKidWalletResponse>(message: new GetKidWalletQuery(KidWalletId: id,
+            KidId: kidId, Name: name, CreatedAt: createdAt, UpdatedAt: updatedAt,
+            IncludeKidAccounts: includeKidAccounts, IncludeKidAccountOperations: includeKidAccountOperations));
     }
-    
+
     [HttpGet]
     public async Task<IReadOnlyCollection<GetKidWalletsResponse>> GetWallets(Guid? id, Guid? kidId, string? name,
         DateTime? createdAt, DateTime? updatedAt, bool? includeKidAccounts, bool? includeKidAccountOperations)
     {
-        return await _messageBus.InvokeAsync<IReadOnlyCollection<GetKidWalletsResponse>>(new GetKidWalletsQuery(id,
-            kidId, name, createdAt, updatedAt, includeKidAccounts, includeKidAccountOperations));
+        return await _messageBus.InvokeAsync<IReadOnlyCollection<GetKidWalletsResponse>>(
+            message: new GetKidWalletsQuery(KidWalletId: id, KidId: kidId, Name: name, CreatedAt: createdAt,
+                UpdatedAt: updatedAt, IncludeKidAccounts: includeKidAccounts,
+                IncludeKidAccountOperations: includeKidAccountOperations));
     }
-    
+
     [HttpPost]
     public async Task PostWallet([FromBody] CreateKidWalletRequest request)
     {
-        await _messageBus.InvokeAsync(new CreateKidWalletCommand(request.KidWalletId, request.KidId, request.Name));
+        await _messageBus.InvokeAsync(message: new CreateKidWalletCommand(KidWalletId: request.KidWalletId,
+            KidId: request.KidId, Name: request.Name));
     }
-    
-    [HttpPut("{id:guid}")]
+
+    [HttpPut(template: "{id:guid}")]
     public async Task PutWallet(Guid id, [FromBody] UpdateKidWalletRequest request)
     {
-        await _messageBus.InvokeAsync(new UpdateKidWalletCommand(id, request.Name));
+        await _messageBus.InvokeAsync(message: new UpdateKidWalletCommand(KidWalletId: id, Name: request.Name));
     }
-    
-    [HttpDelete("{id:guid}")]
+
+    [HttpDelete(template: "{id:guid}")]
     public async Task DeleteWallet(Guid id)
     {
-        await _messageBus.InvokeAsync(new DeleteKidWalletCommand(id));
+        await _messageBus.InvokeAsync(message: new DeleteKidWalletCommand(KidWalletId: id));
     }
 }

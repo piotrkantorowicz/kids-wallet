@@ -18,52 +18,52 @@ public sealed record KidAccountSpecification(
     public Expression<Func<KidAccount, bool>> ToFilterExpression()
     {
         List<Expression<Func<KidAccount, bool>>> predicates = [];
-        
+
         if (Id is not null)
         {
-            predicates.Add(x => x.Id == Id);
+            predicates.Add(item: x => x.Id == Id);
         }
-        
+
         if (KidWalletId is not null)
         {
-            predicates.Add(x => x.KidWalletId == KidWalletId);
+            predicates.Add(item: x => x.KidWalletId == KidWalletId);
         }
-        
+
         if (Name is not null)
         {
-            predicates.Add(x => x.Name == Name);
+            predicates.Add(item: x => x.Name == Name);
         }
-        
+
         if (Balance is not null)
         {
-            predicates.Add(x => x.Balance == Balance);
+            predicates.Add(item: x => x.Balance == Balance);
         }
-        
+
         if (CreatedAt is not null)
         {
-            predicates.Add(x => x.CreatedAt == CreatedAt);
+            predicates.Add(item: x => x.CreatedAt == CreatedAt);
         }
-        
+
         if (UpdatedAt is not null)
         {
-            predicates.Add(x => x.UpdatedAt == UpdatedAt);
+            predicates.Add(item: x => x.UpdatedAt == UpdatedAt);
         }
-        
-        return predicates.Count != 0 ? predicates.Aggregate(AndExpression<KidAccount>.And) : x => true;
+
+        return predicates.Count != 0 ? predicates.Aggregate(func: AndExpression<KidAccount>.And) : x => true;
     }
-    
+
     public string[] ToIncludeExpression()
     {
         ICollection<string> includes = [];
-        
+
         if (IncludeKidAccountOperations is true)
         {
-            includes.Add(nameof(KidAccount.KidAccountOperations));
+            includes.Add(item: nameof(KidAccount.KidAccountOperations));
         }
-        
+
         return includes.ToArray();
     }
-    
+
     public override string ToString()
     {
         return this.Print();

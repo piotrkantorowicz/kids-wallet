@@ -19,52 +19,52 @@ public sealed record KidWalletSpecification(
     public Expression<Func<KidWallet, bool>> ToFilterExpression()
     {
         List<Expression<Func<KidWallet, bool>>> predicates = [];
-        
+
         if (Id is not null)
         {
-            predicates.Add(x => x.Id == Id);
+            predicates.Add(item: x => x.Id == Id);
         }
-        
+
         if (KidId is not null)
         {
-            predicates.Add(x => x.KidId == KidId);
+            predicates.Add(item: x => x.KidId == KidId);
         }
-        
+
         if (Name is not null)
         {
-            predicates.Add(x => x.Name == Name);
+            predicates.Add(item: x => x.Name == Name);
         }
-        
+
         if (CreatedAt is not null)
         {
-            predicates.Add(x => x.CreatedAt == CreatedAt);
+            predicates.Add(item: x => x.CreatedAt == CreatedAt);
         }
-        
+
         if (UpdatedAt is not null)
         {
-            predicates.Add(x => x.UpdatedAt == UpdatedAt);
+            predicates.Add(item: x => x.UpdatedAt == UpdatedAt);
         }
-        
-        return predicates.Count != 0 ? predicates.Aggregate(AndExpression<KidWallet>.And) : x => true;
+
+        return predicates.Count != 0 ? predicates.Aggregate(func: AndExpression<KidWallet>.And) : x => true;
     }
-    
+
     public string[] ToIncludeExpression()
     {
         ICollection<string> includes = [];
-        
+
         if (IncludeKidAccounts is true)
         {
-            includes.Add(nameof(KidWallet.KidAccounts));
+            includes.Add(item: nameof(KidWallet.KidAccounts));
         }
-        
+
         if (IncludeKidAccountOperations is true)
         {
-            includes.Add($"{nameof(KidWallet.KidAccounts)}.{nameof(KidAccount.KidAccountOperations)}");
+            includes.Add(item: $"{nameof(KidWallet.KidAccounts)}.{nameof(KidAccount.KidAccountOperations)}");
         }
-        
+
         return includes.ToArray();
     }
-    
+
     public override string ToString()
     {
         return this.Print();

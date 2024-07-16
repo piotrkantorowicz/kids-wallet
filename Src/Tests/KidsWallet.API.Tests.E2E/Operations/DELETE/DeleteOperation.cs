@@ -9,14 +9,14 @@ internal sealed class DeleteOperation : OperationsTestBase
     {
         // Arrange
         await CreateOperation();
-        
-        await WebApp.Host.Scenario(x =>
+
+        await WebApp.Host.Scenario(configure: x =>
         {
             // Act
-            x.Delete.Url($"/v1/operations/{_operationId}");
-            
+            x.Delete.Url(relativeUrl: $"/v1/operations/{_operationId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

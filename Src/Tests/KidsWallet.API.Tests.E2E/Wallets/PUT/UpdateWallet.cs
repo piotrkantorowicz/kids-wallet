@@ -11,17 +11,17 @@ internal sealed class UpdateWallet : WalletsTestBase
     {
         // Arrange
         await CreateWallet();
-        
-        await WebApp.Host.Scenario(x =>
+
+        await WebApp.Host.Scenario(configure: x =>
         {
-            string? newName = _faker.Random.String2(15);
-            
+            string? newName = _faker.Random.String2(length: 15);
+
             // Act
-            UpdateKidWalletRequest updateRequest = new(newName);
-            x.Put.Json(updateRequest).ToUrl($"/v1/wallets/{_walletId}");
-            
+            UpdateKidWalletRequest updateRequest = new(Name: newName);
+            x.Put.Json(input: updateRequest).ToUrl(url: $"/v1/wallets/{_walletId}");
+
             // Assert
-            x.StatusCodeShouldBe(200);
+            x.StatusCodeShouldBe(statusCode: 200);
         });
     }
 }

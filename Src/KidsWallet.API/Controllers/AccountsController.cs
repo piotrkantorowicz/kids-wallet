@@ -11,48 +11,51 @@ using Wolverine;
 
 namespace KidsWallet.API.Controllers;
 
-[ApiController, Route("v1/accounts")]
+[ApiController, Route(template: "v1/accounts")]
 public class AccountsController : ControllerBase
 {
     private readonly IMessageBus _messageBus;
-    
+
     public AccountsController(IMessageBus messageBus)
     {
-        _messageBus = messageBus ?? throw new ArgumentNullException(nameof(messageBus));
+        _messageBus = messageBus ?? throw new ArgumentNullException(paramName: nameof(messageBus));
     }
-    
-    [HttpGet("{id:guid}")]
+
+    [HttpGet(template: "{id:guid}")]
     public async Task<GetKidAccountResponse> GetAccount(Guid id, Guid? kidWalletId, string? name, decimal? balance,
         DateTime? updatedAt, DateTime? createdAt, bool? includeKidAccountOperations)
     {
-        return await _messageBus.InvokeAsync<GetKidAccountResponse>(new GetKidAccountQuery(id, kidWalletId, name,
-            balance, createdAt, updatedAt, includeKidAccountOperations));
+        return await _messageBus.InvokeAsync<GetKidAccountResponse>(message: new GetKidAccountQuery(KidAccountId: id,
+            KidWalletId: kidWalletId, Name: name, Balance: balance, CreatedAt: createdAt, UpdatedAt: updatedAt,
+            IncludeKidAccountOperations: includeKidAccountOperations));
     }
-    
+
     [HttpGet]
     public async Task<IReadOnlyCollection<GetKidAccountsResponse>> GetAccounts(Guid? id, Guid? kidWalletId,
         string? name, decimal? balance, DateTime? updatedAt, DateTime? createdAt, bool? includeKidAccountOperations)
     {
-        return await _messageBus.InvokeAsync<IReadOnlyCollection<GetKidAccountsResponse>>(new GetKidAccountsQuery(id,
-            kidWalletId, name, balance, createdAt, updatedAt, includeKidAccountOperations));
+        return await _messageBus.InvokeAsync<IReadOnlyCollection<GetKidAccountsResponse>>(
+            message: new GetKidAccountsQuery(KidAccountId: id, KidWalletId: kidWalletId, Name: name, Balance: balance,
+                CreatedAt: createdAt, UpdatedAt: updatedAt, IncludeKidAccountOperations: includeKidAccountOperations));
     }
-    
+
     [HttpPost]
     public async Task PostAccount([FromBody] CreateKidAccountRequest request)
     {
-        await _messageBus.InvokeAsync(new CreateKidAccountCommand(WalletId: request.WalletId,
-            KidAccountId: request.KidAccountId, Name: request.Name, Balance: request.Balance));
+        await _messageBus.InvokeAsync(message: new CreateKidAccountCommand(KidAccountId: request.KidAccountId,
+            KidWalletId: request.WalletId, Name: request.Name, Balance: request.Balance));
     }
-    
-    [HttpPut("{id:guid}")]
+
+    [HttpPut(template: "{id:guid}")]
     public async Task PutAccount(Guid id, [FromBody] UpdateKidAccountRequest request)
     {
-        await _messageBus.InvokeAsync(new UpdateKidAccountCommand(id, request.Name, request.Balance));
+        await _messageBus.InvokeAsync(message: new UpdateKidAccountCommand(KidAccountId: id, Name: request.Name,
+            Balance: request.Balance));
     }
-    
-    [HttpDelete("{id:guid}")]
+
+    [HttpDelete(template: "{id:guid}")]
     public async Task DeleteAccount(Guid id)
     {
-        await _messageBus.InvokeAsync(new DeleteKidAccountCommand(id));
+        await _messageBus.InvokeAsync(message: new DeleteKidAccountCommand(KidAccountId: id));
     }
 }

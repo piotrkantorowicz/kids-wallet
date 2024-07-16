@@ -9,10 +9,10 @@ internal sealed class DeleteAccount : AccountsTestBase
     {
         // Arrange
         await CreateAccount();
-        
+
         // Act
-        Func<Task> act = async () => await WebAppClient.AccountsApi.DeleteAccount(_accountId);
-        
+        Func<Task> act = async () => await WebAppClient.AccountsApi.DeleteAccount(id: _accountId);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

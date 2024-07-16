@@ -9,10 +9,10 @@ internal sealed class GetOperations : OperationsTestBase
     {
         // Arrange
         await CreateOperation();
-        
+
         // Act
-        Func<Task> act = async () => await WebAppClient.OperationsApi.GetOperations(_operationId);
-        
+        Func<Task> act = async () => await WebAppClient.OperationsApi.GetOperations(id: _operationId);
+
         // Assert
         await act.Should().NotThrowAsync();
     }

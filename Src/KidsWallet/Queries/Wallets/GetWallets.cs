@@ -20,30 +20,34 @@ public class GetWalletsQueryHandler
         ICrudOperationsService<KidWallet> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
         IReadOnlyCollection<KidWallet> kidWallets =
-            await kidWalletCrudOperationsService.GetManyAsync(Map(query), cancellationToken);
-        
-        return Map(kidWallets);
+            await kidWalletCrudOperationsService.GetManyAsync(specification: Map(query: query),
+                cancellationToken: cancellationToken);
+
+        return Map(kidWallets: kidWallets);
     }
-    
+
     private static IReadOnlyCollection<GetKidWalletsResponse> Map(IEnumerable<KidWallet> kidWallets)
     {
         return kidWallets
-            .Select(x => new GetKidWalletsResponse(x.Id, x.KidId, x.Name,
-                x
-                    .KidAccounts.Select(y => new GetKidWalletsResponse_KidAccount(y.Id, y.KidWalletId, y.Name,
-                        y.Balance,
-                        y
-                            .KidAccountOperations.Select(z => new GetKidWalletsResponse_KidAccountOperation(z.Id,
-                                z.KidAccountId, z.Description, z.DueDate, z.Amount,
-                                (GetKidWalletsResponse_OperationType)z.OperationType))
+            .Select(selector: x => new GetKidWalletsResponse(KidWalletId: x.Id, KidId: x.KidId, Name: x.Name,
+                KidAccounts: x
+                    .KidAccounts.Select(selector: y => new GetKidWalletsResponse_KidAccount(KidAccountId: y.Id,
+                        KidWalletId: y.KidWalletId, Name: y.Name, Balance: y.Balance,
+                        Operations: y
+                            .KidAccountOperations.Select(selector: z =>
+                                new GetKidWalletsResponse_KidAccountOperation(KidAccountOperationId: z.Id,
+                                    KidAccountId: z.KidAccountId, Description: z.Description, DueDate: z.DueDate,
+                                    Amount: z.Amount,
+                                    OperationType: (GetKidWalletsResponse_OperationType)z.OperationType))
                             .ToList()))
                     .ToList()))
             .ToList();
     }
-    
+
     private static KidWalletSpecification Map(GetKidWalletsQuery query)
     {
-        return new KidWalletSpecification(query.KidWalletId, query.KidId, query.Name, query.CreatedAt, query.UpdatedAt,
-            query.IncludeKidAccounts, query.IncludeKidAccountOperations);
+        return new KidWalletSpecification(Id: query.KidWalletId, KidId: query.KidId, Name: query.Name,
+            CreatedAt: query.CreatedAt, UpdatedAt: query.UpdatedAt, IncludeKidAccounts: query.IncludeKidAccounts,
+            IncludeKidAccountOperations: query.IncludeKidAccountOperations);
     }
 }

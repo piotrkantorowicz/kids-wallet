@@ -13,7 +13,7 @@ public sealed class DeleteKidWalletCommandValidator : AbstractValidator<DeleteKi
 {
     public DeleteKidWalletCommandValidator()
     {
-        RuleFor(x => x.KidWalletId).NotEmpty();
+        RuleFor(expression: x => x.KidWalletId).NotEmpty();
     }
 }
 
@@ -23,6 +23,6 @@ public static class DeleteKidWalletCommandHandler
     public static async Task Handle(DeleteKidWalletCommand command,
         ICrudOperationsService<KidWallet> kidWalletCrudOperationsService, CancellationToken cancellationToken)
     {
-        await kidWalletCrudOperationsService.DeleteAsync(command.KidWalletId, cancellationToken);
+        await kidWalletCrudOperationsService.DeleteAsync(id: command.KidWalletId, cancellationToken: cancellationToken);
     }
 }
