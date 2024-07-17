@@ -43,7 +43,7 @@ public class AccountsController : ControllerBase
     public async Task PostAccount([FromBody] CreateKidAccountRequest request)
     {
         await _messageBus.InvokeAsync(message: new CreateKidAccountCommand(KidAccountId: request.KidAccountId,
-            KidWalletId: request.WalletId, Name: request.Name, Balance: request.Balance));
+            KidWalletId: request.KidWalletId, Name: request.Name, Balance: request.Balance));
     }
 
     [HttpPut(template: "{id:guid}")]

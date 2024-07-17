@@ -1,7 +1,7 @@
 ﻿# curl -X 'GET' 
 #  'http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc' 
 #  -H 'accept: */*'
-GET http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
+GET {{scheme}}://{{host}}/{{version}}/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
 accept: */*
 
 ###
@@ -9,7 +9,7 @@ accept: */*
 # curl -X 'GET' 
 #  'http://localhost:5164/operations' 
 #  -H 'accept: */*'
-GET http://localhost:5164/operations
+GET {{scheme}}://{{host}}/{{version}}/operations
 accept: */*
 
 ###
@@ -26,7 +26,7 @@ accept: */*
 #  "dueDate": "2024-04-17T04:13:22.664Z",
 #  "operationType": 2
 #}'
-POST http://localhost:5164/operations
+POST {{scheme}}://{{host}}/{{version}}/operations
 accept: */*
 Content-Type: application/json
 
@@ -51,7 +51,7 @@ Content-Type: application/json
 #  "dueDate": "2024-04-17T04:14:20.771Z",
 #  "operationType": 2
 #}'
-PUT http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
+PUT {{scheme}}://{{host}}/{{version}}/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
 accept: */*
 Content-Type: application/json
 
@@ -67,7 +67,7 @@ Content-Type: application/json
 # curl -X 'DELETE' 
 #  'http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc' 
 #  -H 'accept: */*'
-DELETE http://localhost:5164/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
+DELETE {{scheme}}://{{host}}/{{version}}/operations/185cdd23-53b0-4d1c-9ade-80cab04729dc
 accept: */*
 
 ###

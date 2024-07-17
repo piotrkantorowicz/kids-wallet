@@ -1,7 +1,7 @@
 ﻿# curl -X 'GET' 
 #  'http://localhost:5164/accounts/643485ab-3915-4464-9efa-b26722750994' 
 #  -H 'accept: */*'
-GET {{host}}/accounts/643485ab-3915-4464-9efa-b26722750994
+GET {{scheme}}://{{host}}/{{version}}/accounts/643485ab-3915-4464-9efa-b26722750994
 accept: */*
 
 ###
@@ -9,7 +9,7 @@ accept: */*
 # curl -X 'GET' 
 #  'http://localhost:5164/accounts' 
 #  -H 'accept: */*'
-GET {{host}}/accounts
+GET {{scheme}}://{{host}}/{{version}}/accounts
 accept: */*
 
 ###
@@ -24,12 +24,12 @@ accept: */*
 #  "balance": 10000,
 #  "kidWalletId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
 #}'
-POST {{host}}/accounts
+POST {{scheme}}://{{host}}/{{version}}/accounts
 accept: */*
 Content-Type: application/json
 
 {
-  "accountId": "643485ab-3915-4464-9efa-b26722750994",
+  "kidAccountId": "643485ab-3915-4464-9efa-b26722750994",
   "name": "Example",
   "balance": 10000,
   "kidWalletId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
@@ -46,12 +46,12 @@ Content-Type: application/json
 #  "name": "Example-10",
 #  "balance": 25000
 #}'
-PUT {{host}}/accounts/643485ab-3915-4464-9efa-b26722750994
+PUT {{scheme}}://{{host}}/{{version}}/accounts/643485ab-3915-4464-9efa-b26722750994
 accept: */*
 Content-Type: application/json
 
 {
-  "accountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "kidAccountId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
   "name": "Example-10",
   "balance": 25000
 }
@@ -61,5 +61,5 @@ Content-Type: application/json
 # curl -X 'DELETE' 
 #  'http://localhost:5164/accounts/643485ab-3915-4464-9efa-b26722750994' 
 #  -H 'accept: */*'
-DELETE {{host}}/accounts/643485ab-3915-4464-9efa-b26722750994
+DELETE {{scheme}}://{{host}}/{{version}}/accounts/643485ab-3915-4464-9efa-b26722750994
 accept: */*

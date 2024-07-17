@@ -15,7 +15,7 @@ internal abstract class AccountsTestBase : WalletsTestBase
         await CreateWallet();
         _accountId = _faker.Random.Guid();
 
-        CreateKidAccountRequest createKidAccountRequest = new(KidAccountId: _accountId, WalletId: _walletId,
+        CreateKidAccountRequest createKidAccountRequest = new(KidAccountId: _accountId, KidWalletId: _walletId,
             Name: _faker.Random.String2(length: 30), Balance: _faker.Random.Decimal());
 
         // Act

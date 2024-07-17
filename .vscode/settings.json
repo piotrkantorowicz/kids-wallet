@@ -1,0 +1,19 @@
+{
+    "rest-client.environmentVariables": {
+        "dev": {
+            "scheme": "http",
+            "host": "localhost:5164",
+            "version": "v1"
+        },
+        "staging": {
+            "scheme": "https",
+            "host": "",
+            "version": "v1"
+        },
+        "production": {
+            "scheme": "https",
+            "host": "",
+            "version": "v1"
+        }
+    }
+}
