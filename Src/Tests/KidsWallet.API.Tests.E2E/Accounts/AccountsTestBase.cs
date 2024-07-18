@@ -20,7 +20,7 @@ internal abstract class AccountsTestBase : WalletsTestBase
             string? accountName = _faker.Random.String2(length: 10);
             decimal balance = _faker.Random.Decimal2(min: 150, max: 1000);
 
-            CreateKidAccountRequest createRequest = new(KidAccountId: _accountId, WalletId: _walletId,
+            CreateKidAccountRequest createRequest = new(KidAccountId: _accountId, KidWalletId: _walletId,
                 Name: accountName, Balance: balance);
 
             // Act
