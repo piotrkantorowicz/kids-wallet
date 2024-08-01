@@ -10,7 +10,7 @@ services:
         ports:
             - 5432:5432
         networks:
-            - postgres-db-network
+            - kids-wallet
     pgadmin:
         image: dpage/pgadmin4
         environment:
@@ -21,8 +21,7 @@ services:
         volumes:
             - ~/Docker/volumes/pgadmin4:/var/lib/pgadmin4/data
         networks:
-            - postgres-db-network
+            - kids-wallet
 
 networks:
-    postgres-db-network:
-        driver: bridge
+    kids-wallet:
