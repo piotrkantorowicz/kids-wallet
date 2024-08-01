@@ -4,7 +4,7 @@ on:
   workflow_call:
 
 env:
-  PROJECT_PATH: "Src/KidsWallet.API.Proxy/KidsWallet.API.Proxy.csproj"
+  PROJECT_PATH: "src/KidsWallet.API.Proxy/KidsWallet.API.Proxy.csproj"
   PACKAGE_OUTPUT_DIRECTORY: ${{ github.workspace }}/kids-wallet-proxy/output
   NUGET_SOURCE_URL: https://nuget.pkg.github.com/${{ github.actor }}
 
@@ -24,7 +24,7 @@ jobs:
         with:
           filters: |
             changed:
-              - 'Src/KidsWallet.API.Proxy/**'
+              - 'src/KidsWallet.API.Proxy/**'
 
       - name: Print changed value
         run: echo ${{ steps.filter_changes.outputs.changed }}

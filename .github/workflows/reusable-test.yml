@@ -53,10 +53,10 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: API tests
-        run: dotnet test Src/Tests/KidsWallet.API.Tests.E2E/KidsWallet.API.Tests.E2E.csproj --no-build --configuration Release --settings tests.runsettings --results-directory "TestResults" --collect:"XPlat Code Coverage"
+        run: dotnet test src/Tests/KidsWallet.API.Tests.E2E/KidsWallet.API.Tests.E2E.csproj --no-build --configuration Release --settings tests.runsettings --results-directory "TestResults" --collect:"XPlat Code Coverage"
 
       - name: Contracts tests
-        run: dotnet test Src/Tests/KidsWallet.API.Proxy.Tests.E2E/KidsWallet.API.Proxy.Tests.E2E.csproj --no-build --configuration Release --settings tests.runsettings --results-directory "TestResults" --collect:"XPlat Code Coverage"
+        run: dotnet test src/Tests/KidsWallet.API.Proxy.Tests.E2E/KidsWallet.API.Proxy.Tests.E2E.csproj --no-build --configuration Release --settings tests.runsettings --results-directory "TestResults" --collect:"XPlat Code Coverage"
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4

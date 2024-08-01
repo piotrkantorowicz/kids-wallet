@@ -2,17 +2,17 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B20F2F4D-FD60-437D-BF32-84243239A281}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API.Tests.E2E", "Src\Tests\KidsWallet.API.Tests.E2E\KidsWallet.API.Tests.E2E.csproj", "{03318C9B-3627-4765-BE3E-720317FAC9DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API.Tests.E2E", "src\Tests\KidsWallet.API.Tests.E2E\KidsWallet.API.Tests.E2E.csproj", "{03318C9B-3627-4765-BE3E-720317FAC9DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API", "Src\KidsWallet.API\KidsWallet.API.csproj", "{5184DC72-F9E8-41AA-8A9F-C0F8A8D9F476}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API", "src\KidsWallet.API\KidsWallet.API.csproj", "{5184DC72-F9E8-41AA-8A9F-C0F8A8D9F476}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet", "Src\KidsWallet\KidsWallet.csproj", "{102C4F50-0D33-4588-A56A-4A778058D721}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet", "src\KidsWallet\KidsWallet.csproj", "{102C4F50-0D33-4588-A56A-4A778058D721}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API.Proxy", "Src\KidsWallet.API.Proxy\KidsWallet.API.Proxy.csproj", "{67B55091-B59D-49FF-B4DB-358CA66314A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API.Proxy", "src\KidsWallet.API.Proxy\KidsWallet.API.Proxy.csproj", "{67B55091-B59D-49FF-B4DB-358CA66314A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API.Proxy.Tests.E2E", "Src\Tests\KidsWallet.API.Proxy.Tests.E2E\KidsWallet.API.Proxy.Tests.E2E.csproj", "{59281363-D460-498B-98BC-A4844F8E9294}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KidsWallet.API.Proxy.Tests.E2E", "src\Tests\KidsWallet.API.Proxy.Tests.E2E\KidsWallet.API.Proxy.Tests.E2E.csproj", "{59281363-D460-498B-98BC-A4844F8E9294}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{5E444E0E-2C3D-4A60-8AC0-6EAAB0F41CC0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E444E0E-2C3D-4A60-8AC0-6EAAB0F41CC0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{F3AD83E8-17AC-4A5C-9F6D-A51D7A695B6E}"
 EndProject
