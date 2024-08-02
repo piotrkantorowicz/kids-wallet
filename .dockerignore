@@ -6,7 +6,7 @@ Docs/
 .gitignore
 **/obj/
 **/bin/
-**/Tests/
+**/tests/
 Dockerfile
 KidsWallet.sln
 KidsWallet.sln.DotSettings
