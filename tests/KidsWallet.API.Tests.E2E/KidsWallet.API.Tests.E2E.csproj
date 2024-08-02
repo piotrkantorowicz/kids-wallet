@@ -34,8 +34,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\KidsWallet.API.Proxy\KidsWallet.API.Proxy.csproj"/>
-        <ProjectReference Include="..\..\KidsWallet.API\KidsWallet.API.csproj"/>
+        <ProjectReference Include="..\..\src\KidsWallet.API.Proxy\KidsWallet.API.Proxy.csproj"/>
+        <ProjectReference Include="..\..\src\KidsWallet.API\KidsWallet.API.csproj"/>
     </ItemGroup>
 
 </Project>
